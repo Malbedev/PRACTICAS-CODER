@@ -5,7 +5,23 @@ from django.views import generic
 
 
 def inicio(request):
-    return render(request,"AppCoder/inicio.html")
+    peliculas= Peliculas.objects.all()
+    directores = Directores.objects.all()
+    curadores= Curadores.objects.all()
+    generos = Generos.objects.all()
+    destacada= Peliculas.objects.filter(destacada=True)
+    
+
+    context= {
+         'peliculas' : peliculas,
+         'directores': directores,
+         'curadores': curadores,
+         'generos':generos,
+         'destacada':destacada,
+
+    }
+
+    return render(request,"AppCoder/inicio.html",context=context)
 
 def usuario(request):
      return render(request,"AppCoder/usuario.html")
@@ -38,5 +54,5 @@ def directores(request):
 
 class ReseñaDetalle(generic.DetailView):
      model = Peliculas
-   
+
 
