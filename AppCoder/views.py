@@ -10,7 +10,13 @@ def usuario(request):
      return render(request,"AppCoder/usuario.html")
 
 def peliculas(request):
-    return render(request,"AppCoder/peliculas.html")
+    peliculas= Peliculas.objects.all()
+
+    context= {
+         'peliculas' : peliculas
+
+    }
+    return render(request,"AppCoder/peliculas.html",context=context)
 
 def series(request):
      return render(request,"AppCoder/series.html")
