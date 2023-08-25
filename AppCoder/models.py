@@ -31,6 +31,7 @@ class Peliculas(models.Model):
     autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
     imagen = models.ImageField(null=True)
+    destacada= models.BooleanField(default=False)
 
     def __str__(self):
         return self.titulo
