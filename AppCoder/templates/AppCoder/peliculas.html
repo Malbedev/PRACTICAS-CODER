@@ -8,13 +8,20 @@
     <div class="page-header d-flex align-items-center">
         <div class="container position-relative">
           <div class="row d-flex justify-content-center">
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-4 text-center">
             <br>
             <br>
             <br>
-              <h2>Nature (16 images)</h2>
-              <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
             
+              <div class="card">
+                <div class="card-header">Buacar Pelis</div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                    </div>
+                </div>
+            </div>
             </div>
           </div>
         </div>
@@ -30,7 +37,7 @@
                 <img src="{{pelicula.cover.url}}" class="img-fluid" alt="">
                 <div class="gallery-links d-flex align-items-center justify-content-center">
                   <a href="#" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                  <a href="{% url 'peliculas_detail' pelicula.id %}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <a href="{% url 'reseña' pelicula.slug %}" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Gallery Item -->

@@ -23,9 +23,6 @@ def inicio(request):
 
     return render(request,"AppCoder/inicio.html",context=context)
 
-def usuario(request):
-     return render(request,"AppCoder/usuario.html")
-
 def peliculas(request):
     peliculas= Peliculas.objects.all()
     directores = Directores.objects.all()
@@ -44,15 +41,17 @@ def peliculas(request):
     }
     return render(request,"AppCoder/peliculas.html",context=context)
 
+class ReseñaDetalle(generic.DetailView):
+     model = Peliculas
+     template_name= 'AppCoder/reseña.html'
+
+
+
 def series(request):
      return render(request,"AppCoder/series.html")
 
 def directores(request):
      return render(request,"AppCoder/directores.html")
 
-
-
-class ReseñaDetalle(generic.DetailView):
-     model = Peliculas
-
-
+def usuario(request):
+     return render(request,"AppCoder/usuario.html")
