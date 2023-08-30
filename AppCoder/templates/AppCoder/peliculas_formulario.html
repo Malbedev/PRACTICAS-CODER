@@ -1,0 +1,17 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+    <form action="{% url 'peliculasFormulario' %}" method="post"> {% csrf_token %}
+
+        {{ miFormulario.as_p}}
+
+        <button type="submit">Enviar</button>
+
+    </form>
+   
+
+
+{% endblock %}

@@ -23,7 +23,7 @@
                     </div>
                     <div class="profile mt-auto">
                       <img src="{{ director.imagen.url }}" class="testimonial-img" alt="">
-                      <a href="{% url 'directores_detalle' director.slug %}">{{ director.nombre }}{{ director.apellido }}</a>
+                      <a href="{% url 'directores_detalle' director.slug %}">{{ director.nombre }} {{ director.apellido }}</a>
                     </div>
                     <p>
                       "{{director.citas}}"

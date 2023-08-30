@@ -17,7 +17,7 @@
                     <!-- Post meta content-->
                     <div class="text-muted fst-italic mb-2">Posted on January 1, 2023 by Start Bootstrap</div>
                     <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ peliculas.director}} </a> 
+                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ peliculas.autor_reseña}}</a>
                 </header>
                 <!-- Preview image figure-->

@@ -8,21 +8,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio<a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Curadores</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Curadores</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Peliculas</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'series' %}">Series</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'directores' %}">Directores</a></li>
                 <li class="nav-item dropdown">
                     <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                    PoSt
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">Series</a></li>
+                        <li><a class="dropdown-item" href="{% url 'peliculasFormulario' %}">Peliculas</a></li>
+                        <li><a class="dropdown-item" href="#">Directores</a></li>
                     </ul>
                 </li>                        
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Usuario</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'usuario' %}">Usuario</a></li>
                 <li class="nav-item"><a class="btn btn-primary" href="#NADAAUN">LogIN</a></li>                    
             </ul>
         </div>

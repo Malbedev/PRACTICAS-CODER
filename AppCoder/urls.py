@@ -11,4 +11,6 @@ urlpatterns = [
     path('peliculas-detalle/<slug:slug>',views.ReseñaPeliculaDetalle.as_view(),name='peliculas_detalle'),
     path('series-detalle/<slug:slug>',views.ReseñaSeriesDetalle.as_view(),name='series_detalle'),
     path('directores-detalle/<slug:slug>',views.DirectoresDetalle.as_view(),name='directores_detalle'),
+    path('peliculas-formulario/', views.peliculas_formulario,name='peliculasFormulario'),
 ]
+
