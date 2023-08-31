@@ -88,17 +88,20 @@ class DirectoresDetalle(generic.DetailView):
 
 
 def peliculas_formulario(request):
-     
+
+    miFormulario = PeliculasFormulario(request.POST,request.FILES)
+
     if request.method == 'POST':
-         
-        miFormulario = PeliculasFormulario(request.POST)
+        
+       
         if miFormulario.is_valid():
-              
+            
             data = miFormulario.cleaned_data
-            pelicula =Peliculas(titulo=data['titulo'], slug=data['slug'], genero=data['genero'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            pelicula =Peliculas(titulo=data['titulo'], slug=data['slug'], año=data['año'],genero=data['genero'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
             pelicula.save()
             return render(request,'AppCoder/usuario.html',{"mensaje":'Pelicula cargada con exito'})
         else:
+            
             return render(request,'AppCoder/usuario.html',{"mensaje":'Formulario Invalido'})
     else:
         miFormulario = PeliculasFormulario()

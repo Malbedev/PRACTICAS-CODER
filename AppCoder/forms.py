@@ -12,4 +12,8 @@ class PeliculasFormulario(forms.Form):
     autor_reseña= forms.ModelChoiceField(queryset=Curadores.objects.all(),required=True)
     cover = forms.ImageField(required=True)
     imagen = forms.ImageField(required=True)
+    
+ 
   
+
+

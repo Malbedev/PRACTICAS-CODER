@@ -26,10 +26,10 @@ class Curadores(models.Model):
 class Peliculas(models.Model):
 
     titulo =models.CharField(max_length=50)
-    slug = models.SlugField(unique=True,null=True)
+    slug = models.SlugField(null=True)
     overview = models.TextField(null=True)
     genero= models.ManyToManyField('Generos')
-    año=models.IntegerField()
+    año=models.IntegerField(blank=True,null=True)
     director = models.ForeignKey(Directores,on_delete=models.CASCADE,null=True)
     reseña = models.TextField(null=True)
     autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
