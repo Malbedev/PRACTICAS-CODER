@@ -108,7 +108,10 @@ def peliculas_formulario(request):
         return render(request,'AppCoder/peliculas_formulario.html',{ 'miFormulario': miFormulario })
 
 
+def busqueda_peliculas(request):
+    
 
+    return render(request,'busqueda_peliculas.html')
 
 
 
