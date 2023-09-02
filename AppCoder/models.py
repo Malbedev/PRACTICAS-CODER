@@ -1,5 +1,12 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
+class Generos(models.Model):
+    genero=models.CharField(max_length=50)
+    slug = models.SlugField(unique=False)
+
+    def __str__(self):
+        return self.genero
 
 
 class Directores(models.Model):
@@ -25,10 +32,10 @@ class Curadores(models.Model):
 
 class Peliculas(models.Model):
 
-    titulo =models.CharField(max_length=50)
+    titulo =models.CharField(max_length=50,null=True)
     slug = models.SlugField(null=True)
     overview = models.TextField(null=True)
-    genero= models.ManyToManyField('Generos')
+    genero= models.ManyToManyField(Generos)
     año=models.IntegerField(blank=True,null=True)
     director = models.ForeignKey(Directores,on_delete=models.CASCADE,null=True)
     reseña = models.TextField(null=True)
@@ -39,13 +46,15 @@ class Peliculas(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    
 
 class Series(models.Model):
 
     titulo =models.CharField(max_length=50)
-    slug = models.SlugField(unique=True,null=True)
+    slug = models.SlugField(unique=False,null=True)
     overview = models.TextField(null=True)
-    genero= models.ManyToManyField('Generos')
+    genero= models.ManyToManyField(Generos)
     año=models.IntegerField()
     temporadas= models.IntegerField()
     reseña = models.TextField(null=True)
@@ -56,13 +65,8 @@ class Series(models.Model):
     
     def __str__(self):
         return self.titulo
-
     
-class Generos(models.Model):
-    genero=models.CharField(max_length=50)
-    slug = models.SlugField(unique=False)
-
-    def __str__(self):
-        return self.genero
+    
+    
 
 

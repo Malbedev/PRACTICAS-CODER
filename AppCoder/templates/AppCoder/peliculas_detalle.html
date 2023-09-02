@@ -19,9 +19,9 @@
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ peliculas.autor_reseña}}</a>
-                    {% for genero in generos %}
-                    <a class="badge bg-secondary text-decoration-none link-light">{{ genero.genero}}</a>
-                    {% endfor %}
+                    
+                        <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
+                
   
                 </header>
                 <!-- Preview image figure-->

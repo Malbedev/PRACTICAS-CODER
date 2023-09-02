@@ -22,6 +22,8 @@
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' pelicula.director.slug %}">{{ pelicula.director}} </a> 
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ pelicula.autor_reseña}}</a>
+                            <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.año}}</a>
+                            
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded" src="{{ pelicula.imagen.url }}" alt="..." /></figure>

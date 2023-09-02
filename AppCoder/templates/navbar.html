@@ -17,9 +17,9 @@
                     PoSt
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#">Series</a></li>
+                        <li><a class="dropdown-item" href="{% url 'seriesFormulario' %}">Series</a></li>
                         <li><a class="dropdown-item" href="{% url 'peliculasFormulario' %}">Peliculas</a></li>
-                        <li><a class="dropdown-item" href="#">Directores</a></li>
+                        <li><a class="dropdown-item" href="{% url 'directoresFormulario' %}">Directores</a></li>
                     </ul>
                 </li>                        
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'usuario' %}">Usuario</a></li>

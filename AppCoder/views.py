@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import *
 from django.http import HttpResponse
 from django.views import generic
-from .forms import PeliculasFormulario
+from .forms import *
 
 
 def inicio(request):
@@ -100,6 +100,37 @@ def peliculas_formulario(request):
     else:
         miFormulario = PeliculasFormulario()
         return render(request,'AppCoder/peliculas_formulario.html',{ 'miFormulario': miFormulario })
+
+def series_formulario(request):
+    miFormulario = SeriesFormulario(request.POST,request.FILES)
+    if request.method == 'POST': 
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            serie =Series(titulo=data['titulo'], año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            serie.save()
+            serie.genero.set(data['genero']) 
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Serie cargada con exito'})
+        else:
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Formulario Invalido'})
+    else:
+        miFormulario = SeriesFormulario()
+        return render(request,'AppCoder/series_formulario.html',{ 'miFormulario': miFormulario })
+
+def directores_formulario(request):
+    miFormulario = DirectoresFormulario(request.POST,request.FILES)
+    if request.method == 'POST': 
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            director =Directores(nombre=data['nombre'],apellido=data['apellido'], slug=data['slug'],biografia=data['biografia'],citas=data['citas'],imagen =data['imagen'])
+            director.save()
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Director cargado con exito'})
+        else:
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Formulario Invalido'})
+    else:
+        miFormulario = DirectoresFormulario()
+        return render(request,'AppCoder/directores_formulario.html',{ 'miFormulario': miFormulario })
+
+
 
 
 def busqueda_peliculas(request):
