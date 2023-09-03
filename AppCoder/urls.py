@@ -14,5 +14,6 @@ urlpatterns = [
     path('peliculas-formulario/', views.peliculas_formulario,name='peliculasFormulario'),
     path('series-formulario/', views.series_formulario,name='seriesFormulario'),
     path('directores-formulario/', views.directores_formulario,name='directoresFormulario'),
-]
+    path('busqueda-peliculas/', views.busqueda_pelicula,name='busquedaPeliculas'),
 
+]

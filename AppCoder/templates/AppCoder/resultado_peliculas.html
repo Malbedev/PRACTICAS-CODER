@@ -4,6 +4,8 @@
 
 {% block contenidoQueCambia %}
 
+
+
     <!-- ======= End Page Header ======= -->
     <div class="page-header d-flex align-items-center">
         <div class="container position-relative">
@@ -12,27 +14,18 @@
             <br>
             <br>
             <br>
-            
-              <div class="card">
-                <div class="card-header">Buscar Pelis</div>
-                <div class="card-body">
-                    <form class="input-group" action="{% url 'busquedaPeliculas' %}" method="get">
-                        <input name = "titulo" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
-                    </form>
-
-                </div>
-            </div>
+            <H2><i>Encontrados:</i></H2>
+             
             </div>
           </div>
         </div>
     </div><!-- End Page Header -->
-
+    
       <section id="gallery" class="gallery">
         <div class="container-fluid">
   
           <div class="row gy-4 justify-content-center">
-            {% for pelicula in peliculas %}
+            {% for pelicula in pelicula %}
             
             <div class="col-xl-2 col-lg-4 col-md-6">
               <div class="gallery-item h-100">

@@ -1,8 +1,10 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from .models import *
 from django.http import HttpResponse
 from django.views import generic
 from .forms import *
+from django.db.models import Q
 
 
 def inicio(request):
@@ -132,13 +134,17 @@ def directores_formulario(request):
 
 
 
+def busqueda_pelicula(request):
+    if request.GET['titulo']:
 
-def busqueda_peliculas(request):
-    
-
-    return render(request,'busqueda_peliculas.html')
-
-
+        titulo = request.GET['titulo']
+        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
+        if pelicula:
+            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
+        else: 
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Busqueda Invalida'})
+    else:
+        return render(request,'AppCoder/usuario.html',{"mensaje":'Busqueda Invalida'})
 
 
 
