@@ -36,7 +36,6 @@ class Peliculas(models.Model):
 
     titulo =models.CharField(max_length=50,null=True)
     slug = models.SlugField(null=True)
-    overview = models.TextField(null=True)
     genero= models.ManyToManyField(Generos)
     año=models.IntegerField(blank=True,null=True)
     director = models.ForeignKey(Directores,on_delete=models.CASCADE,null=True)
@@ -55,7 +54,7 @@ class Series(models.Model):
 
     titulo =models.CharField(max_length=50)
     slug = models.SlugField(unique=False,null=True)
-    overview = models.TextField(null=True)
+   
     genero= models.ManyToManyField(Generos)
     año=models.IntegerField()
     temporadas= models.IntegerField()

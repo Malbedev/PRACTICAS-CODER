@@ -87,6 +87,7 @@ class DirectoresDetalle(generic.DetailView):
      model = Directores
      template_name= 'AppCoder/directores_detalle.html'
 
+##Peliculas##
 
 def peliculas_formulario(request):
     miFormulario = PeliculasFormulario(request.POST,request.FILES)
@@ -102,6 +103,20 @@ def peliculas_formulario(request):
     else:
         miFormulario = PeliculasFormulario()
         return render(request,'AppCoder/peliculas_formulario.html',{ 'miFormulario': miFormulario })
+    
+def busqueda_pelicula(request):
+    if request.GET['titulo']:
+
+        titulo = request.GET['titulo']
+        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
+        if pelicula:
+            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
+        else: 
+            return render(request,'AppCoder/usuario.html',{"mensaje":'Busqueda Invalida'})
+    else:
+        return render(request,'AppCoder/usuario.html',{"mensaje":'Busqueda Invalida'})
+
+    ##SERIES##    
 
 def series_formulario(request):
     miFormulario = SeriesFormulario(request.POST,request.FILES)
@@ -134,13 +149,13 @@ def directores_formulario(request):
 
 
 
-def busqueda_pelicula(request):
+def busqueda_serie(request):
     if request.GET['titulo']:
 
         titulo = request.GET['titulo']
-        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
-        if pelicula:
-            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
+        serie=Series.objects.filter(Q(titulo__icontains = titulo))
+        if serie:
+            return render(request,'AppCoder/resultado_series.html',{'serie':serie})
         else: 
             return render(request,'AppCoder/usuario.html',{"mensaje":'Busqueda Invalida'})
     else:

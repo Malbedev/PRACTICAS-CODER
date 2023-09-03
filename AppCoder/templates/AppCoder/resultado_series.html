@@ -12,15 +12,8 @@
         <br>
         <br>
         <br>
+        <H2><i>Encontrados:</i></H2>
         
-          <div class="card">
-            <div class="card-header">Buscar Series</div>
-            <div class="card-body">
-                <form class="input-group" action="{% url 'busquedaSeries' %}" method="get">
-                    <input name = "titulo" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                    <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
-                </form>
-            </div>
         </div>
         </div>
       </div>
@@ -31,13 +24,14 @@
     <div class="container-fluid">
 
       <div class="row gy-4 justify-content-center">
-        {% for serie in series %}
+        {% for serie in serie %}
+
         <div class="col-xl-2 col-lg-4 col-md-6">
           <div class="gallery-item h-100">
             <img src="{{serie.cover.url}}" class="img-fluid" alt="">
             <div class="gallery-links d-flex align-items-center justify-content-center">
-             
-              <a href="{% url 'series_detalle' serie.slug %}"class="details-link"><i class="bi bi-lightning"></i></a>
+              <a href="#" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+              <a href="{% url 'series_detalle' serie.slug %}" class="details-link"><i class="bi bi-link-45deg"></i></a>
             </div>
           </div>
         </div><!-- End Gallery Item -->
