@@ -1,4 +1,4 @@
-PRUYECTO FINAL - TERCERA ENTREGA 
+PROYECTO FINAL - TERCERA ENTREGA -MAURO ALBERELLI
 
 Es una web de reseñas de peliculas y series.La idea es Contar con curadores que pueden ser los usuarios tambien, con su respectivo login lo que flata desarrolar todavia.
 ES UNA WEB EN CONSTRUCION, faltan funcionalidades.
