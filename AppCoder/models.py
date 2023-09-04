@@ -53,8 +53,7 @@ class Peliculas(models.Model):
 class Series(models.Model):
 
     titulo =models.CharField(max_length=50)
-    slug = models.SlugField(unique=False,null=True)
-   
+    slug = models.SlugField(unique=True,null=True)
     genero= models.ManyToManyField(Generos)
     año=models.IntegerField()
     temporadas= models.IntegerField()

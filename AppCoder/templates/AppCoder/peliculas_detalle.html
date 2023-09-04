@@ -1,5 +1,7 @@
 {% extends "Base.html" %}
- {% load static %}
+
+{% load static %}
+
 {% block contenidoQueCambia %}
 
  <!-- Page content-->
@@ -19,8 +21,8 @@
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ peliculas.autor_reseña}}</a>
-                    
-                        <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
                 
   
                 </header>
@@ -79,19 +81,26 @@
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
-            <!-- Search widget-->
+                          
             <div class="card mb-4">
-                <div class="card-header">Search</div>
+                <div class="card-header">Categorias</div>
                 <div class="card-body">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                   
+                    <div class="row">
+                        {% for genero in generos %}
+                        <div class="col-sm-6">                                        
+                            <ul class="list-unstyled mb-0">
+                                <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ generos.genero}}</a></li>      
+                            </ul>
+                        </div> 
+                        {% endfor %}
+
                     </div>
+                     
                 </div>
+               
             </div>
-      
-        
-          
+            
             <!-- Side widget-->
             <div class="card mb-4">
                 <div class="card-header">Side Widget</div>
@@ -99,7 +108,6 @@
             </div>
         </div>
     </div>
-</div>
-
-
+</div>    
+                    
 {% endblock %} 

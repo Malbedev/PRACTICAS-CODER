@@ -1,0 +1,24 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+<div class="page-header d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <br>
+          <h1>OOOOO!!!</h1>
+          <p><i>{{mensaje}}</i></p>
+          <div class="nav-link"><a class="btn btn-primary" href="{% url 'inicio' %}">VolveR</a></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+<br>
+
+{% endblock %}
+
