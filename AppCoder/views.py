@@ -58,7 +58,7 @@ def peliculas_formulario(request):
     if request.method == 'POST': 
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
-            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
             pelicula.save()
             pelicula.genero.set(data['genero']) 
             return render(request,'AppCoder/resultados.html',{"mensaje":'Pelicula cargada con exito'})
@@ -109,7 +109,7 @@ def series_formulario(request):
     if request.method == 'POST': 
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
-            serie =Series(titulo=data['titulo'],año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            serie =Series(titulo=data['titulo'],año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
             serie.save()
             serie.genero.set(data['genero']) 
             return render(request,'AppCoder/resultados.html',{"mensaje":'Serie cargada con exito'})

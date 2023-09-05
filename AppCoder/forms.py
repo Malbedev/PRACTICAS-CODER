@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from embed_video.fields import EmbedVideoFormField
 
 class PeliculasFormulario(forms.Form):
 
@@ -11,6 +12,7 @@ class PeliculasFormulario(forms.Form):
     autor_reseña= forms.ModelChoiceField(queryset=Curadores.objects.all(),required=True)
     cover = forms.ImageField(required=True)
     imagen = forms.ImageField(required=True)
+    video_link =EmbedVideoFormField(required=False)
     
  
   
@@ -25,6 +27,7 @@ class SeriesFormulario(forms.Form):
     autor_reseña= forms.ModelChoiceField(queryset=Curadores.objects.all(),required=True)
     cover = forms.ImageField(required=True)
     imagen = forms.ImageField(required=True)
+    video_link =EmbedVideoFormField(required=False)
     
  
 class DirectoresFormulario(forms.Form):

@@ -1,5 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from embed_video.fields import EmbedVideoField
+
 
 
 class Directores(models.Model):
@@ -51,6 +53,7 @@ class Peliculas(models.Model):
     autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
     imagen = models.ImageField(null=True)
+    video_link = EmbedVideoField(blank=True,null=True)
     destacada= models.BooleanField(default=False)
 
     def __str__(self):
@@ -74,6 +77,7 @@ class Series(models.Model):
     autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
     imagen = models.ImageField(null=True)
+    video_link = EmbedVideoField(blank=True,null=True)
     destacada= models.BooleanField(default=False)
     
     def __str__(self):

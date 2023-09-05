@@ -4,13 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pillow = "*"
-<<<<<<< HEAD
 django = "*"
-=======
->>>>>>> cb3fabd33ac800d70edc2b47a6836fc8e226b78f
-django-crispy-forms = "*"
-crispy-bootstrap5 = "*"
+pillow = "*"
+django-embed-video = "*"
 
 [dev-packages]
 
