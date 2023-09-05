@@ -17,13 +17,23 @@
                  
                     <h1 class="fw-bolder mb-1"> {{ peliculas.titulo }}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on January 1, 2023 by Start Bootstrap</div>
+                    <div class="text-muted fst-italic mb-2">Posted on {{ peliculas.fecha_creacion}} por {{ peliculas.autor_reseña}}</div>
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ peliculas.autor_reseña}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
-                    <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
-                
+                   
+        
+
+                    
+                    <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.genero}}</a>
+                  
+    
+                    
+                      
+                    
+                    
+                   
   
                 </header>
                 <!-- Preview image figure-->

@@ -4,7 +4,6 @@ from .models import *
 class PeliculasFormulario(forms.Form):
 
     titulo =forms.CharField(max_length=50,required=True)
-    slug = forms.SlugField(required=True)
     genero= forms.ModelMultipleChoiceField(queryset=Generos.objects.all(),required=True)
     año=forms.IntegerField(required=True)
     director =forms.ModelChoiceField(queryset=Directores.objects.all(),required=True)
@@ -18,7 +17,7 @@ class PeliculasFormulario(forms.Form):
 class SeriesFormulario(forms.Form):
 
     titulo =forms.CharField(max_length=50,required=True)
-    slug = forms.SlugField(required=True)
+ 
     genero= forms.ModelMultipleChoiceField(queryset=Generos.objects.all(),required=True)
     temporadas=forms.IntegerField(required=True)
     año=forms.IntegerField(required=True)
@@ -32,7 +31,6 @@ class DirectoresFormulario(forms.Form):
 
     nombre =forms.CharField(max_length=50,required=True)
     apellido=forms.CharField(max_length=50,required=True)
-    slug = forms.SlugField(required=True)
     biografia= forms.CharField(widget=forms.Textarea) 
     citas=forms.CharField(max_length=300,required=True)
     imagen= forms.ImageField(required=True)

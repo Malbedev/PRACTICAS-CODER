@@ -1,21 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-class Generos(models.Model):
-    genero=models.CharField(max_length=50)
-    slug = models.SlugField(unique=False)
-
-    def __str__(self):
-        return self.genero
-
-class Curadores(models.Model):
-    nombre =models.CharField(max_length=50)
-    apellido=models.CharField(max_length=50)
-    reseñas=models.ManyToManyField('Peliculas',blank=True)
-
-    def __str__(self):
-        return f'{self.nombre} {self.apellido}'
-
 
 class Directores(models.Model):
     nombre =models.CharField(max_length=50)
@@ -29,13 +14,36 @@ class Directores(models.Model):
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
     
+    def save(self, *args, **kwargs):
+        self.slug = self.nombre.lower() + '-' + self.apellido.lower()
+        super(Directores, self).save(*args, **kwargs)
+    
+class Curadores(models.Model):
+    nombre =models.CharField(max_length=50)
+    apellido=models.CharField(max_length=50)
+    reseñas=models.ManyToManyField('Peliculas',blank=True)
 
+    def __str__(self):
+        return f'{self.nombre} {self.apellido}'
+    
+    
+class Generos(models.Model):
+    genero=models.CharField(max_length=50)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.genero
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.genero)
+        super(Generos, self).save(*args, **kwargs)
 
 
 class Peliculas(models.Model):
 
-    titulo =models.CharField(max_length=50,null=True)
-    slug = models.SlugField(null=True)
+    titulo =models.CharField(max_length=50)
+    slug = models.SlugField(unique=True,null=True)
+    fecha_creacion=models.DateField(auto_now_add=True)
     genero= models.ManyToManyField(Generos)
     año=models.IntegerField(blank=True,null=True)
     director = models.ForeignKey(Directores,on_delete=models.CASCADE,null=True)
@@ -48,12 +56,17 @@ class Peliculas(models.Model):
     def __str__(self):
         return self.titulo
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Peliculas, self).save(*args, **kwargs)
+
     
 
 class Series(models.Model):
 
     titulo =models.CharField(max_length=50)
     slug = models.SlugField(unique=True,null=True)
+    fecha_creacion=models.DateField(auto_now_add=True)
     genero= models.ManyToManyField(Generos)
     año=models.IntegerField()
     temporadas= models.IntegerField()
@@ -66,7 +79,10 @@ class Series(models.Model):
     def __str__(self):
         return self.titulo
     
-    
-    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Series, self).save(*args, **kwargs)
+
+
 
 

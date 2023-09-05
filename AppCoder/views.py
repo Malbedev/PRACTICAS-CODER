@@ -44,6 +44,13 @@ def peliculas(request):
 class ReseñaPeliculaDetalle(generic.DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
+     
+     def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         context['generos']=Generos.objects.all()
+         return context
+     
+     
 
 
 def peliculas_formulario(request):
@@ -51,7 +58,7 @@ def peliculas_formulario(request):
     if request.method == 'POST': 
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
-            pelicula =Peliculas(titulo=data['titulo'], slug=data['slug'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
             pelicula.save()
             pelicula.genero.set(data['genero']) 
             return render(request,'AppCoder/resultados.html',{"mensaje":'Pelicula cargada con exito'})
@@ -102,7 +109,7 @@ def series_formulario(request):
     if request.method == 'POST': 
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
-            serie =Series(titulo=data['titulo'],slug=data['slug'] ,año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
+            serie =Series(titulo=data['titulo'],año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'])
             serie.save()
             serie.genero.set(data['genero']) 
             return render(request,'AppCoder/resultados.html',{"mensaje":'Serie cargada con exito'})
@@ -148,7 +155,7 @@ def directores_formulario(request):
     if request.method == 'POST': 
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
-            director =Directores(nombre=data['nombre'],apellido=data['apellido'], slug=data['slug'],biografia=data['biografia'],citas=data['citas'],imagen =data['imagen'])
+            director =Directores(nombre=data['nombre'],apellido=data['apellido'],biografia=data['biografia'],citas=data['citas'],imagen =data['imagen'])
             director.save()
             return render(request,'AppCoder/resultados.html',{"mensaje":'Director cargado con exito'})
         else:
