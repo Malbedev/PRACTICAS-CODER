@@ -1,5 +1,6 @@
 {% extends "Base.html" %}
  {% load static %}
+ {% load embed_video_tags %}
 {% block contenidoQueCambia %}
 
  <!-- Page content-->
@@ -85,7 +86,7 @@
                         {% for genero in generos %}
                         <div class="col-sm-6">                                        
                             <ul class="list-unstyled mb-0">
-                                <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ generos.genero}}</a></li>      
+                                <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ genero.genero}}</a></li>      
                             </ul>
                         </div> 
                         {% endfor %}
@@ -95,11 +96,10 @@
                 </div>
                
             </div>
-            <!-- Side widget-->
-            <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
-                <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-            </div>
+        
+                <div class="card-header">Trailer</div>
+                <div class="card-body">{% video series.video_link 'tiny' %}</div>
+           
         </div>
     </div>
 </div>

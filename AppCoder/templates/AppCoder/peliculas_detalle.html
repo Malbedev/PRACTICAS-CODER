@@ -23,19 +23,7 @@
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
-                   
-        
-
-                    
                     <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.genero}}</a>
-                  
-    
-                    
-                      
-                    
-                    
-                   
-  
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{ peliculas.imagen.url }}" alt="..." /></figure>
@@ -101,7 +89,7 @@
                         {% for genero in generos %}
                         <div class="col-sm-6">                                        
                             <ul class="list-unstyled mb-0">
-                                <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ generos.genero}}</a></li>      
+                                <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ genero.genero}}</a></li>      
                             </ul>
                         </div> 
                         {% endfor %}
@@ -111,12 +99,10 @@
                 </div>
                
             </div>
-            
-            <!-- Side widget-->
         
                 <div class="card-header">Trailer</div>
                 <div class="card-body">{% video peliculas.video_link 'tiny' %}</div>
-            </div>
+           
         </div>
     </div>
 </div>    

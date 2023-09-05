@@ -1,6 +1,7 @@
 {% extends "Base.html" %}
 
 {% load static %}
+{% load embed_video_tags %}
 
 {% block contenidoQueCambia %}
         <!-- Page content-->
@@ -14,7 +15,7 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1"> Recomendacion Semanal!!</h1>
+                            <h1 class="fw-bolder fst-italic mb-1"> Recomendacion Semanal!!</h1>
                             <br>
                             <h1 class="fw-bolder mb-1"> {{ pelicula.titulo }}</h1>
                             <!-- Post meta content-->
@@ -82,18 +83,12 @@
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Buscar</div>
-                        <div class="card-body">
-                            <form class="input-group" action="{% url 'busquedaPeliculas' %}" method="get">
-                                <input name = "titulo" class="form-control" type="text" placeholder="peliculas..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                
                     <div class="card mb-4">
                         <div class="card-header">Categorias</div>
                         <div class="card-body">
@@ -112,12 +107,14 @@
                         </div>
                        
                     </div>
-                    
+                    {% for pelicula in peliculas %}
+                    {% if pelicula.destacada == True %}
                     <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    <div class="card-header">Trailer</div>
+                    <div class="card-body">{% video pelicula.video_link 'tiny' %}</div>
                     </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

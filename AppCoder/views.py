@@ -51,8 +51,6 @@ class ReseñaPeliculaDetalle(generic.DetailView):
          return context
      
      
-
-
 def peliculas_formulario(request):
     miFormulario = PeliculasFormulario(request.POST,request.FILES)
     if request.method == 'POST': 
@@ -68,17 +66,7 @@ def peliculas_formulario(request):
         miFormulario = PeliculasFormulario()
         return render(request,'AppCoder/peliculas_formulario.html',{ 'miFormulario': miFormulario })
     
-def busqueda_pelicula(request):
-    if request.GET['titulo']:
 
-        titulo = request.GET['titulo']
-        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
-        if pelicula:
-            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
-        else: 
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!'})
-    else:
-        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida'})
 
       ##SERIES## 
 
@@ -102,6 +90,11 @@ def series(request):
 class ReseñaSeriesDetalle(generic.DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
+
+     def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         context['generos']=Generos.objects.all()
+         return context
       
 
 def series_formulario(request):
@@ -119,17 +112,7 @@ def series_formulario(request):
         miFormulario = SeriesFormulario()
         return render(request,'AppCoder/series_formulario.html',{ 'miFormulario': miFormulario })
 
-def busqueda_serie(request):
-    if request.GET['titulo']:
 
-        titulo = request.GET['titulo']
-        serie=Series.objects.filter(Q(titulo__icontains = titulo))
-        if serie:
-            return render(request,'AppCoder/resultado_series.html',{'serie':serie})
-        else: 
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!'})
-    else:
-        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida'})
 
 ##DIRECTORES##
 
@@ -164,7 +147,22 @@ def directores_formulario(request):
         miFormulario = DirectoresFormulario()
         return render(request,'AppCoder/directores_formulario.html',{ 'miFormulario': miFormulario })
 
+##BUSQUEDA##
 
+def busqueda(request):
+    if request.GET['titulo']:
+
+        titulo = request.GET['titulo']
+        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
+        serie=Series.objects.filter(Q(titulo__icontains = titulo))
+        if pelicula:
+            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
+        elif serie:
+            return render(request,'AppCoder/resultado_series.html',{'serie':serie})
+        else: 
+            return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!'})
+    else:
+        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida'})
 
 ##USUARIOS##
 
