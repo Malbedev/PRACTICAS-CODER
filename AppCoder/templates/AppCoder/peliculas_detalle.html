@@ -23,7 +23,7 @@
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
-                    <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.genero}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{ peliculas.imagen.url }}" alt="..." /></figure>

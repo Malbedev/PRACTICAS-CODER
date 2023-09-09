@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import *
 from django.http import HttpResponse
@@ -163,6 +164,23 @@ def busqueda(request):
             return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!'})
     else:
         return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida'})
+
+##Genero##
+
+class GeneroListaVista(generic.ListView):
+     model = Generos
+     template_name= 'AppCoder/genero_lista.html'
+     context_object_name = 'generos'
+     
+     def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/generos-lista/','')
+        context = super().get_context_data(**kwargs)
+        context['peliculas']=Peliculas.objects.filter(genero__slug=query)
+        context['series']=Series.objects.filter(genero__slug=query)
+        context['generos']=Generos.objects.filter(genero__icontains=query)
+        return context
+     
+    
 
 ##USUARIOS##
 

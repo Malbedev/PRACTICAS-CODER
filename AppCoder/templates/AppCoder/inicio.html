@@ -97,7 +97,7 @@
                                 {% for genero in generos %}
                                 <div class="col-sm-6">                                        
                                     <ul class="list-unstyled mb-0">
-                                        <li><a class=" bs-secondary text-decoration-none link" href="#!">{{ genero.genero}}</a></li>      
+                                        <li><a class=" bs-secondary text-decoration-none link" href="{% url 'generosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
                                     </ul>
                                 </div> 
                                 {% endfor %}
