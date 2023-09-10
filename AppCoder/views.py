@@ -68,7 +68,7 @@ def peliculas_formulario(request):
     
 
 
-      ##SERIES## 
+##SERIES## 
 
 def series(request):
      
