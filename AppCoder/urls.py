@@ -16,6 +16,7 @@ urlpatterns = [
     path('series-formulario/', views.series_formulario,name='seriesFormulario'),
     path('directores-formulario/', views.directores_formulario,name='directoresFormulario'),
     path('busqueda/', views.busqueda,name='busqueda'),
+    path('generos-lista/<slug:slug>', views.GeneroListaVista.as_view(),name='generosLista'),
     
 
 ]
