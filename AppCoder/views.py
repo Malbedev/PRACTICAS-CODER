@@ -6,6 +6,10 @@ from django.http import HttpResponse
 from django.views import generic
 from .forms import *
 from django.db.models import Q
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
+from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def inicio(request):
@@ -42,7 +46,7 @@ def peliculas(request):
     }
     return render(request,"AppCoder/peliculas.html",context=context)
 
-class ReseñaPeliculaDetalle(generic.DetailView):
+class ReseñaPeliculaDetalle(LoginRequiredMixin,generic.DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
      
@@ -51,7 +55,7 @@ class ReseñaPeliculaDetalle(generic.DetailView):
          context['generos']=Generos.objects.all()
          return context
      
-     
+@login_required  
 def peliculas_formulario(request):
     miFormulario = PeliculasFormulario(request.POST,request.FILES)
     if request.method == 'POST': 
@@ -88,7 +92,7 @@ def series(request):
          }
     return render(request,"AppCoder/series.html",context=context)
 
-class ReseñaSeriesDetalle(generic.DetailView):
+class ReseñaSeriesDetalle(LoginRequiredMixin,generic.DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
 
@@ -97,7 +101,7 @@ class ReseñaSeriesDetalle(generic.DetailView):
          context['generos']=Generos.objects.all()
          return context
       
-
+@login_required
 def series_formulario(request):
     miFormulario = SeriesFormulario(request.POST,request.FILES)
     if request.method == 'POST': 
@@ -130,10 +134,11 @@ def directores(request):
     
      return render(request,"AppCoder/directores.html",context=context)
 
-class DirectoresDetalle(generic.DetailView):
+class DirectoresDetalle(LoginRequiredMixin,generic.DetailView):
      model = Directores
      template_name= 'AppCoder/directores_detalle.html'
 
+@login_required
 def directores_formulario(request):
     miFormulario = DirectoresFormulario(request.POST,request.FILES)
     if request.method == 'POST': 
@@ -149,7 +154,7 @@ def directores_formulario(request):
         return render(request,'AppCoder/directores_formulario.html',{ 'miFormulario': miFormulario })
 
 ##BUSQUEDA##
-
+@login_required
 def busqueda(request):
     if request.GET['titulo']:
 
@@ -167,7 +172,7 @@ def busqueda(request):
 
 ##Genero##
 
-class GeneroListaVista(generic.ListView):
+class GeneroListaVista(LoginRequiredMixin,generic.ListView):
      model = Generos
      template_name= 'AppCoder/genero_lista.html'
      context_object_name = 'generos'
@@ -183,6 +188,47 @@ class GeneroListaVista(generic.ListView):
     
 
 ##USUARIOS##
+
+def loginView(request):
+
+    if request.method =='POST':
+        miFormulario= AuthenticationForm(request, data=request.POST)
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            usuario=data['username']
+            password=data['password']
+
+            user=authenticate(username=usuario,password=password)
+
+            if user:
+              login(request,user)
+              return render(request,'AppCoder/inicio.html',{"mensaje":f'{usuario.capitalize()}'})
+            else:
+               return render(request,'AppCoder/login.html',{'miFormulario': miFormulario ,"mensaje":f'Datos Incorrectos'})
+        else:
+           
+            return render(request,'AppCoder/login.html',{ 'miFormulario': miFormulario , "mensaje":'Formulario Invalido'})   
+    else:
+        miFormulario= AuthenticationForm()
+        return render(request,'AppCoder/login.html',{ 'miFormulario': miFormulario })
+        
+def registroUsuario(request):
+    if request.method =='POST':
+        miFormulario= RegistroUserForm(request.POST)
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            usuario=data['username']
+            miFormulario.save()
+            miFormulario= AuthenticationForm()
+            return render(request,'AppCoder/login.html',{ 'miFormulario': miFormulario ,"mensaje":f'Bienvenidx {usuario.capitalize()} !!'})
+            
+        else:    
+            return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario ,"mensaje":'Formulario Invalido'})   
+    else:
+        miFormulario= RegistroUserForm()
+        return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario })
+
+
 
 def usuario(request):
      return render(request,"AppCoder/usuario.html")

@@ -1,0 +1,37 @@
+{% extends "Base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block contenidoQueCambia %}
+<br>
+<br>
+
+ <div class="page-header d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 text-center">
+          <br>
+          <p><i>{{mensaje}}</i></p>
+          <form action="{% url 'registro' %}"method="post" enctype="multipart/form-data"> 
+        
+            {% csrf_token %}
+
+         <h2>Registro Nuevo Usuario</h2> 
+         
+            {{ miFormulario | crispy }}
+            <br>
+            <button class="btn btn-primary"  type="submit">Enviar</button>
+        </form>
+        <br>
+        <p> YA estas registrado ?? </p>
+        <a href="{% url 'login' %}">Login </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+{% endblock %}

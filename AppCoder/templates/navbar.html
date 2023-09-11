@@ -27,8 +27,12 @@
                         <li><a class="dropdown-item" href="{% url 'directoresFormulario' %}">Directores</a></li>
                     </ul>
                 </li>                       
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'usuario' %}">Usuario</a></li>
-                <li class="nav-item"><a class="btn btn-primary" href="#NADAAUN">LogIN</a></li>                    
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'usuario' %}">{{user.username}}</a></li>
+                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout' %}">LogOut</a></li> 
+                {% else %}
+                    <li class="nav-item"><a class="btn btn-primary" href="{% url 'login' %}">LogIN</a></li> 
+                {% endif%}
             </ul>
         </div>
     </div>

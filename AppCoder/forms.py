@@ -1,6 +1,8 @@
 from django import forms
 from .models import *
 from embed_video.fields import EmbedVideoFormField
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
+from django.contrib.auth.models import User
 
 class PeliculasFormulario(forms.Form):
 
@@ -37,3 +39,14 @@ class DirectoresFormulario(forms.Form):
     biografia= forms.CharField(widget=forms.Textarea) 
     citas=forms.CharField(max_length=300,required=True)
     imagen= forms.ImageField(required=True)
+
+
+class RegistroUserForm(UserCreationForm):
+    username=forms.CharField()
+    password1=forms.CharField(label='Contraseña',widget=forms.PasswordInput)
+    password2=forms.CharField(label='Repetir Contraseña',widget=forms.PasswordInput)
+
+    class meta:
+        model=User 
+        fields= ['username','password1','password2']
+        help_texts= {k:"" for k in fields}
