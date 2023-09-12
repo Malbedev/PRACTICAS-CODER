@@ -10,7 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserCh
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth import get_user
 
 def inicio(request):
     peliculas= Peliculas.objects.all()
@@ -240,9 +240,10 @@ class UserPostLista(ListView):
 
 
     def get_context_data(self, **kwargs):
-        query=self.request.path.replace('/user-post-lista/','5')
+        query= self.request.user.id
         context = super().get_context_data(**kwargs)
-        context['peliculas']=Peliculas.objects.filter(autor_reseña_id__id=query)
+        context['peliculas']=Peliculas.objects.filter(autor_reseña_id=query)
+        context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
 
