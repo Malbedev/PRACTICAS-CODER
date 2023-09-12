@@ -28,7 +28,15 @@
                     </ul>
                 </li>                       
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'usuario' %}">{{user.username}}</a></li>
+                <li class="nav-item dropdown">
+                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                     {{user.username}}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'usuario' %}">Mi Perfil</a></li>
+                        <li><a class="dropdown-item" href="#">Mis Post</a></li>
+                    </ul>
+                </li>
                     <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout' %}">LogOut</a></li> 
                 {% else %}
                     <li class="nav-item"><a class="btn btn-primary" href="{% url 'login' %}">LogIN</a></li> 
