@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from embed_video.fields import EmbedVideoField
+from django.contrib.auth.models import User
 
 
 
@@ -50,7 +51,7 @@ class Peliculas(models.Model):
     año=models.IntegerField(blank=True,null=True)
     director = models.ForeignKey(Directores,on_delete=models.CASCADE,null=True)
     reseña = models.TextField(null=True)
-    autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
+    autor_reseña= models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
     imagen = models.ImageField(null=True)
     video_link = EmbedVideoField(blank=True,null=True)
@@ -74,7 +75,7 @@ class Series(models.Model):
     año=models.IntegerField()
     temporadas= models.IntegerField()
     reseña = models.TextField(null=True)
-    autor_reseña= models.ForeignKey(Curadores,on_delete=models.CASCADE,null=True)
+    autor_reseña= models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
     imagen = models.ImageField(null=True)
     video_link = EmbedVideoField(blank=True,null=True)

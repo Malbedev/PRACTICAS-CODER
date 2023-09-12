@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import *
 from django.http import HttpResponse
-from django.views import generic
+from django.views.generic import *
 from .forms import *
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
@@ -46,7 +46,7 @@ def peliculas(request):
     }
     return render(request,"AppCoder/peliculas.html",context=context)
 
-class ReseñaPeliculaDetalle(LoginRequiredMixin,generic.DetailView):
+class ReseñaPeliculaDetalle(LoginRequiredMixin,DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
      
@@ -92,7 +92,7 @@ def series(request):
          }
     return render(request,"AppCoder/series.html",context=context)
 
-class ReseñaSeriesDetalle(LoginRequiredMixin,generic.DetailView):
+class ReseñaSeriesDetalle(LoginRequiredMixin,DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
 
@@ -134,7 +134,7 @@ def directores(request):
     
      return render(request,"AppCoder/directores.html",context=context)
 
-class DirectoresDetalle(LoginRequiredMixin,generic.DetailView):
+class DirectoresDetalle(LoginRequiredMixin,DetailView):
      model = Directores
      template_name= 'AppCoder/directores_detalle.html'
 
@@ -172,7 +172,7 @@ def busqueda(request):
 
 ##Genero##
 
-class GeneroListaVista(LoginRequiredMixin,generic.ListView):
+class GeneroListaVista(LoginRequiredMixin,ListView):
      model = Generos
      template_name= 'AppCoder/genero_lista.html'
      context_object_name = 'generos'
@@ -232,6 +232,21 @@ def registroUsuario(request):
 
 def usuario(request):
      return render(request,"AppCoder/usuario.html")
+
+
+class UserPostLista(ListView):
+    model= User
+    template_name= 'AppCoder/user_post_lista.html'
+
+
+    def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/user-post-lista/','5')
+        context = super().get_context_data(**kwargs)
+        context['peliculas']=Peliculas.objects.filter(autor_reseña_id__id=query)
+        return context
+     
+
+
 
 def resultados(request):
      return render(request,"AppCoder/resultado.html")
