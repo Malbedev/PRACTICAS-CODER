@@ -234,7 +234,7 @@
   
   a {
     color:  #dd9814;
-    text-decoration: underline;
+    text-decoration: double;
   }
   a:hover {
     color: var(--bs-link-hover-color);

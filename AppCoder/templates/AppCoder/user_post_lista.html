@@ -2,58 +2,45 @@
 
 
 {% block contenidoQueCambia %}
-
-
-
-
-<div class="page-header d-flex align-items-center">
+<br>
+<br>
+<br>
+<div class="page-header d-flex align-items">
     <div class="container position-relative">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-4 text-center">
-        <br>
-        <br>
-        <br>
-        {% for genero in generos %}
-          <div class="card">
-            <div class="card-header">{{genero}}</div>
-          </div>
+      <div class="row d-flex justify-content">
+          <div class="col-lg-4 text">
+            <div class="card text-center">
+                <div class="card-header">Mis Peliculas</div> 
+                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'peliculasFormulario' %}" >Agregar Nueva Pelicula</a> 
+            </div>
+            <br>
+        <div class="col-lg-4 text"></div>
+        {% for pelicula in peliculas %}
+            <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
+            <div class="text-muted fst-italic mb-2">Posted on {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Eliminar</a>
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar</a> 
+            <br>
+            <br>
+        {% endfor %}
+            <div class="card text-center">
+                <div class="card-header">Mis Series</div> 
+                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'seriesFormulario' %}">Agregar Nueva Serie</a> 
+            </div>
+                 <br>
+        {% for serie in series %}
+            <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
+            <div class="text-muted fst-italic mb-2">Posted on {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div>
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Eliminar</a>
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar</a> 
+            <br>
+            <br>           
         {% endfor %}
         </div>
       </div>
     </div>
-</div><!-- End Page Header -->   
-<section id="gallery" class="gallery">
-    <div class="container-fluid">
-        <div class="row gy-4 justify-content-center">
-        {% for pelicula in peliculas %}
-        
-        <div class="col-xl-2 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="{{pelicula.cover.url}}" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
+</div>
 
-              <a href="{% url 'peliculas_detalle' pelicula.slug %}" class="details-link"><i class="bi bi-lightning"></i></a>
-            </div>
-          </div>
-        </div>
-               
-        {% endfor %}
-        {% for serie in series %}
-        
-        <div class="col-xl-2 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="{{serie.cover.url}}" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-
-              <a href="{% url 'series_detalle' serie.slug %}" class="details-link"><i class="bi bi-lightning"></i></a>
-            </div>
-          </div>
-        </div>
-               
-        {% endfor %}
-  
-        </div>
-    </div>
 </section>
 <br>
 <br>
