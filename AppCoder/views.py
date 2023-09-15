@@ -54,24 +54,23 @@ class ReseñaPeliculaDetalle(LoginRequiredMixin,DetailView):
          context = super().get_context_data(**kwargs)
          context['generos']=Generos.objects.all()
          return context
-     
-@login_required  
-def peliculas_formulario(request):
-    miFormulario = PeliculasFormulario(request.POST,request.FILES)
-    if request.method == 'POST': 
-        if miFormulario.is_valid():
-            data = miFormulario.cleaned_data
-            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
-            pelicula.save()
-            pelicula.genero.set(data['genero']) 
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Pelicula cargada con exito'})
-        else:
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Formulario Invalido'})
-    else:
-        miFormulario = PeliculasFormulario()
-        return render(request,'AppCoder/peliculas_formulario.html',{ 'miFormulario': miFormulario })
-    
 
+class CrearPelicula(LoginRequiredMixin,CreateView):
+    model=Peliculas
+    template_name='AppCoder/peliculas_formulario.html'
+    fields=['titulo','genero','año','director','reseña','autor_reseña','cover','imagen','video_link']
+    success_url='/user-post-lista/'
+
+class EliminarPeliculas(DeleteView):
+    model=Peliculas
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
+
+class EditarPeliculas(LoginRequiredMixin,UpdateView):
+    model=Peliculas
+    template_name='AppCoder/peliculas_actualizar.html'
+    fields=['titulo','genero','año','director','reseña','cover','imagen','video_link']
+    success_url='/user-post-lista/'
 
 ##SERIES## 
 
@@ -100,25 +99,25 @@ class ReseñaSeriesDetalle(LoginRequiredMixin,DetailView):
          context = super().get_context_data(**kwargs)
          context['generos']=Generos.objects.all()
          return context
-      
-@login_required
-def series_formulario(request):
-    miFormulario = SeriesFormulario(request.POST,request.FILES)
-    if request.method == 'POST': 
-        if miFormulario.is_valid():
-            data = miFormulario.cleaned_data
-            serie =Series(titulo=data['titulo'],año=data['año'],temporadas=data['temporadas'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
-            serie.save()
-            serie.genero.set(data['genero']) 
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Serie cargada con exito'})
-        else:
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Formulario Invalido'})
-    else:
-        miFormulario = SeriesFormulario()
-        return render(request,'AppCoder/series_formulario.html',{ 'miFormulario': miFormulario })
+
+class CrearSerie(LoginRequiredMixin,CreateView):
+    model=Series
+    template_name='AppCoder/series_formulario.html'
+    fields=['titulo','genero','año','temporadas','reseña','autor_reseña','cover','imagen','video_link']
+    success_url='/user-post-lista/'    
 
 
+class EliminarSeries(DeleteView):
+    model=Series
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
 
+class EditarSeries(LoginRequiredMixin,UpdateView):
+    model=Series
+    template_name='AppCoder/series_actualizar.html'
+    fields=['titulo','genero','año','temporadas','reseña','cover','imagen','video_link']
+    success_url='/user-post-lista/'
+    
 ##DIRECTORES##
 
 def directores(request):
@@ -233,7 +232,6 @@ def registroUsuario(request):
 def usuario(request):
      return render(request,"AppCoder/usuario.html")
 
-
 class UserPostLista(ListView):
     model= User
     template_name= 'AppCoder/user_post_lista.html'
@@ -248,47 +246,6 @@ class UserPostLista(ListView):
         context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
-class UserPostEliminarPeliculas(DeleteView):
-    model=Peliculas
-    template_name='AppCoder/confirmacion_eliminar.html'
-    success_url='/user-post-lista/'
-
-class UserPostEliminarSeries(DeleteView):
-    model=Series
-    template_name='AppCoder/confirmacion_eliminar.html'
-    success_url='/user-post-lista/'
-
-
-def UserPostUpdatePeliculas(req,id):
-
-    pelicula=Peliculas.objects.get(id=id) 
-   
-    if req.method == 'POST': 
-        miFormulario = PeliculasFormulario(req.POST,req.FILES)
-        if miFormulario.is_valid():
-            data = miFormulario.cleaned_data
-            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
-            pelicula.save()
-            pelicula.genero.set(data['genero']) 
-          
-            return render(req,'AppCoder/resultados.html',{"mensaje":'Pelicula Actualizada con exito'})
-        else:
-            print(miFormulario.errors)
-            return render(req,'AppCoder/resultados.html',{"mensaje":f'Formulario Invalido,No olvide que los campos de cover e imagen son obligartorios'})
-    else:
-        miFormulario = PeliculasFormulario (initial= {
-            'titulo':pelicula.titulo,
-            'genero':pelicula.genero.all(),
-            'año': pelicula.año,
-            'director':pelicula.director,
-            'reseña':pelicula.reseña,
-            'autor_reseña':pelicula.autor_reseña,
-            'cover':pelicula.cover,
-            'imagen':pelicula.imagen,
-            'video_link':pelicula.video_link,
-        })
-
-        return render(req,'AppCoder/update_peliculas.html',{'miFormulario':miFormulario,'id':pelicula.id})
 
 
 

@@ -18,8 +18,8 @@
         {% for pelicula in peliculas %}
             <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
             <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'userPostEliminarPeliculas' pelicula.id %}">Eliminar </a>
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'userPostUpdatePeliculas' pelicula.id %}">Editar </a>        
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EliminarPeliculas' pelicula.id %}">Eliminar </a>
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarPeliculas' pelicula.id %}">Editar </a>        
             <br>
             <br>
         {% endfor %}
@@ -32,8 +32,8 @@
         {% for serie in series %}
             <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
             <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div>      
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'userPostEliminarSeries' serie.id %}">Eliminar</a>    
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar  </a> 
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EliminarSeries' serie.id %}">Eliminar</a>    
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarSeries' serie.id %}">Editar  </a> 
             <br>
             <br>           
         {% endfor %}
@@ -54,6 +54,10 @@
 <br> 
 <br> 
 <br> 
-
+<br>
+<br> 
+<br> 
+<br> 
+<br> 
 
 {% endblock %}

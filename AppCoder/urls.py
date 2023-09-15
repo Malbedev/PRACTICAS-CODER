@@ -14,8 +14,8 @@ urlpatterns = [
     path('peliculas-detalle/<slug:slug>',ReseñaPeliculaDetalle.as_view(),name='peliculas_detalle'),
     path('series-detalle/<slug:slug>',ReseñaSeriesDetalle.as_view(),name='series_detalle'),
     path('directores-detalle/<slug:slug>',DirectoresDetalle.as_view(),name='directores_detalle'),
-    path('peliculas-formulario/', peliculas_formulario,name='peliculasFormulario'),
-    path('series-formulario/',series_formulario,name='seriesFormulario'),
+    path('peliculas-formulario/', CrearPelicula.as_view(),name='peliculasFormulario'),
+    path('series-formulario/',CrearSerie.as_view(),name='seriesFormulario'),
     path('directores-formulario/',directores_formulario,name='directoresFormulario'),
     path('busqueda/', busqueda,name='busqueda'),
     path('generos-lista/<slug:slug>', GeneroListaVista.as_view(),name='generosLista'),
@@ -23,9 +23,11 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(),name='logout'),
     path('registro/', registroUsuario,name='registro'),
     path('user-post-lista/', UserPostLista.as_view(),name='userPostLista'),
-    path('user-post-eliminar-peliculas/<pk>', UserPostEliminarPeliculas.as_view(),name='userPostEliminarPeliculas'),
-    path('user-post-eliminar-series/<pk>', UserPostEliminarSeries.as_view(),name='userPostEliminarSeries'),
-    path('user-post-update-peliculas/<int:id>', UserPostUpdatePeliculas,name='userPostUpdatePeliculas'),
+    path('eliminar-peliculas/<pk>', EliminarPeliculas.as_view(),name='EliminarPeliculas'),
+    path('eliminar-series/<pk>', EliminarSeries.as_view(),name='EliminarSeries'),
+    path('editar-peliculas/<pk>', EditarPeliculas.as_view(),name='EditarPeliculas'),
+    path('editar-series/<pk>', EditarSeries.as_view(),name='EditarSeries'),
+    
     
 
 ]
