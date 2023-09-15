@@ -1,0 +1,52 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="page-header d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 text-center">
+          <br>
+          <h1>ESTAS A PUNTO DE ELIMINAR UNO DE TUS POST !!</h1>
+          <h3><i>Deseas confirmar ??</i></h3>
+          <form  method="post">{% csrf_token %}
+            <button type="submit" class="btn btn-primary">Confirmar </button>
+            <a class="btn btn-primary" href="{% url 'userPostLista' %}">VolveR</button></a>    
+          </form>        
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

@@ -23,6 +23,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(),name='logout'),
     path('registro/', registroUsuario,name='registro'),
     path('user-post-lista/', UserPostLista.as_view(),name='userPostLista'),
+    path('user-post-eliminar-peliculas/<pk>', UserPostEliminarPeliculas.as_view(),name='userPostEliminarPeliculas'),
+     path('user-post-eliminar-series/<pk>', UserPostEliminarSeries.as_view(),name='userPostEliminarSeries'),
     
 
 ]

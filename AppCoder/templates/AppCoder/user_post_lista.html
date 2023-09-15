@@ -17,29 +17,13 @@
         <div class="col-lg-4 text"></div>
         {% for pelicula in peliculas %}
             <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
-            <div class="text-muted fst-italic mb-2">Posted on {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
-            <!-- Button trigger modal -->
-            <button type="button"  class="badge bg-secondary text-decoration-none link-light" data-bs-toggle="modal" data-bs-target="#exampleModal">                
-                Eliminar
-              </button> 
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Estas Seguro que quieres eliminar el post?? </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
-                    <button type="button" class="btn btn-primary">Eliminar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar</a> 
+            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'userPostEliminarPeliculas' pelicula.id %}">Eliminar </a>
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar </a>        
             <br>
             <br>
         {% endfor %}
+        <br>
             <div class="card text-center">
                 <div class="card-header">Mis Series</div> 
                 <a class="badge bg-primary text-decoration-none link-light" href="{% url 'seriesFormulario' %}">Agregar Nueva Serie</a> 
@@ -47,26 +31,9 @@
             <br>
         {% for serie in series %}
             <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
-            <div class="text-muted fst-italic mb-2">Posted on {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div>
-                <!-- Button trigger modal -->
-                <button type="button"  class="badge bg-secondary text-decoration-none link-light" data-bs-toggle="modal" data-bs-target="#exampleModal">                
-                    Eliminar 
-                  </button> 
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
-                        <button type="button" class="btn btn-primary">Eliminar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar</a> 
+            <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div>      
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'userPostEliminarSeries' serie.id %}">Eliminar</a>    
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Editar  </a> 
             <br>
             <br>           
         {% endfor %}

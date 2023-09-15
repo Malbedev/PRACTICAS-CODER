@@ -237,6 +237,8 @@ def usuario(request):
 class UserPostLista(ListView):
     model= User
     template_name= 'AppCoder/user_post_lista.html'
+    context_object_name = 'peliculas'
+    context_object_name = 'series'
 
 
     def get_context_data(self, **kwargs):
@@ -246,6 +248,18 @@ class UserPostLista(ListView):
         context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
+class UserPostEliminarPeliculas(DeleteView):
+    model=Peliculas
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
+
+class UserPostEliminarSeries(DeleteView):
+    model=Series
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
+
+
+
 
 
 
