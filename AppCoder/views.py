@@ -259,7 +259,36 @@ class UserPostEliminarSeries(DeleteView):
     success_url='/user-post-lista/'
 
 
+def UserPostUpdatePeliculas(req,id):
 
+    pelicula=Peliculas.objects.get(id=id) 
+   
+    if req.method == 'POST': 
+        miFormulario = PeliculasFormulario(req.POST,req.FILES)
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            pelicula =Peliculas(titulo=data['titulo'], año=data['año'], director=data['director'], reseña=data['reseña'], autor_reseña=data['autor_reseña'], cover =data['cover'], imagen =data['imagen'],video_link=data['video_link'])
+            pelicula.save()
+            pelicula.genero.set(data['genero']) 
+          
+            return render(req,'AppCoder/resultados.html',{"mensaje":'Pelicula Actualizada con exito'})
+        else:
+            print(miFormulario.errors)
+            return render(req,'AppCoder/resultados.html',{"mensaje":f'Formulario Invalido,No olvide que los campos de cover e imagen son obligartorios'})
+    else:
+        miFormulario = PeliculasFormulario (initial= {
+            'titulo':pelicula.titulo,
+            'genero':pelicula.genero.all(),
+            'año': pelicula.año,
+            'director':pelicula.director,
+            'reseña':pelicula.reseña,
+            'autor_reseña':pelicula.autor_reseña,
+            'cover':pelicula.cover,
+            'imagen':pelicula.imagen,
+            'video_link':pelicula.video_link,
+        })
+
+        return render(req,'AppCoder/update_peliculas.html',{'miFormulario':miFormulario,'id':pelicula.id})
 
 
 
