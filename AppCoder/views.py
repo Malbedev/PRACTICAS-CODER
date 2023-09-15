@@ -1,16 +1,16 @@
 from typing import Any, Dict
-from django.db.models.query import QuerySet
 from django.shortcuts import render
+from .forms import *
 from .models import *
 from django.http import HttpResponse
 from django.views.generic import *
-from .forms import *
+from django.db.models.query import QuerySet
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth import get_user
 
 def inicio(request):
     peliculas= Peliculas.objects.all()
@@ -237,14 +237,29 @@ def usuario(request):
 class UserPostLista(ListView):
     model= User
     template_name= 'AppCoder/user_post_lista.html'
+    context_object_name = 'peliculas'
+    context_object_name = 'series'
 
 
     def get_context_data(self, **kwargs):
-        query=self.request.path.replace('/user-post-lista/','5')
+        query= self.request.user.id
         context = super().get_context_data(**kwargs)
-        context['peliculas']=Peliculas.objects.filter(autor_reseña_id__id=query)
+        context['peliculas']=Peliculas.objects.filter(autor_reseña_id=query)
+        context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
+class UserPostEliminarPeliculas(DeleteView):
+    model=Peliculas
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
+
+class UserPostEliminarSeries(DeleteView):
+    model=Series
+    template_name='AppCoder/confirmacion_eliminar.html'
+    success_url='/user-post-lista/'
+
+
+
 
 
 
