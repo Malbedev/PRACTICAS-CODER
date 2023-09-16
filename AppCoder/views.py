@@ -63,7 +63,6 @@ class CrearPelicula(LoginRequiredMixin,CreateView):
 
 class EliminarPeliculas(DeleteView):
     model=Peliculas
-    template_name='AppCoder/confirmacion_eliminar.html'
     success_url='/user-post-lista/'
 
 class EditarPeliculas(LoginRequiredMixin,UpdateView):
@@ -106,10 +105,11 @@ class CrearSerie(LoginRequiredMixin,CreateView):
     fields=['titulo','genero','año','temporadas','reseña','autor_reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'    
 
+    
 
 class EliminarSeries(DeleteView):
     model=Series
-    template_name='AppCoder/confirmacion_eliminar.html'
+
     success_url='/user-post-lista/'
 
 class EditarSeries(LoginRequiredMixin,UpdateView):

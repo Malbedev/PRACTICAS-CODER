@@ -14,11 +14,30 @@
                 <a class="badge bg-primary text-decoration-none link-light" href="{% url 'peliculasFormulario' %}" >Agregar Nueva Pelicula</a> 
             </div>
             <br>
-        <div class="col-lg-4 text"></div>
         {% for pelicula in peliculas %}
             <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
             <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EliminarPeliculas' pelicula.id %}">Eliminar </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{pelicula.id}}">
+                Eliminar
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal{{pelicula.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Estas Seguro que quieres eliminar "{{pelicula.titulo}}"</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Close</button>
+                    <form action="{% url 'EliminarPeliculas' pelicula.id %}" method="post">{% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Confirmar </button> 
+                    </form>  
+                    </div>
+                </div>
+                </div>
+            </div>
             <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarPeliculas' pelicula.id %}">Editar </a>        
             <br>
             <br>
@@ -30,12 +49,32 @@
             </div>
             <br>
         {% for serie in series %}
-            <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
-            <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div>      
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EliminarSeries' serie.id %}">Eliminar</a>    
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarSeries' serie.id %}">Editar  </a> 
-            <br>
-            <br>           
+        <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
+        <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div> 
+        <!-- Button trigger modal -->
+        <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{serie.id}}">
+            Eliminar
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{serie.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Estas Seguro que quieres eliminar "{{serie.titulo}}"</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Close</button>
+                <form action="{% url 'EliminarSeries' serie.id %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Confirmar </button> 
+                </form>  
+                </div>
+            </div>
+            </div>
+        </div>
+        <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarSeries' serie.id %}">Editar </a>        
+        <br>
+        <br>          
         {% endfor %}
         </div>
       </div>
