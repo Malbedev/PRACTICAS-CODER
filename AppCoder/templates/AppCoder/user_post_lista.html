@@ -10,13 +10,13 @@
       <div class="row d-flex justify-content">
           <div class="col-lg-4 text">
             <div class="card text-center">
-                <div class="card-header">Mis Peliculas</div> 
-                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'peliculasFormulario' %}" >Agregar Nueva Pelicula</a> 
+                <div class="card-header"><h4>Mis Peliculas</h4></div>
+                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'peliculasFormulario' %}" ><h6>Agregar Nueva Pelicula</h6></a>
             </div>
             <br>
         {% for pelicula in peliculas %}
             <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
-            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
+            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} </div> 
             <!-- Button trigger modal -->
             <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{pelicula.id}}">
                 Eliminar
@@ -44,13 +44,13 @@
         {% endfor %}
         <br>
             <div class="card text-center">
-                <div class="card-header">Mis Series</div> 
-                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'seriesFormulario' %}">Agregar Nueva Serie</a> 
+                <div class="card-header"><h4>Mis Series</h4></div> 
+                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'seriesFormulario' %}"><h6>Agregar Nueva Serie</h6></a> 
             </div>
             <br>
         {% for serie in series %}
         <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
-        <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}} por {{ serie.autor_reseña}}</div> 
+        <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}}</div> 
         <!-- Button trigger modal -->
         <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{serie.id}}">
             Eliminar

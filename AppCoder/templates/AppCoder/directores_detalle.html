@@ -30,23 +30,21 @@
               <div class="col-lg-4">
                 <img src="{{ directores.imagen.url }}"href="" class="img-fluid" alt="">
                 <div class="section-header">
-                    <h2>Filmografia</h2>
-                    <p>What they are saying</p>
+                    <h3>Filmografia en Nerdflix</h3>
+                    {% for pelicula in peliculas %}
+        
+                    <div class="col-xl-8 ">
+                    <div class="gallery-item h-100">
+                        <h2><button class=" btn btn-outline-primary"> <a href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2></button>
+                        <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div> 
+                        <div class="gallery-links d-flex align-items-center justify-content-center">
+                        </div>
+                    </div>
+                    </div>
+                    {% endfor %}
                   </div>
               </div>
               <div class="col-lg-5 content">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <ul>
-                      <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>1 May 1995</span></li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-6">
-                    <ul>
-                      <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>30</span></li>
-                    </ul>
-                  </div>
-                </div>
                 <p class="m-0">
                     {{ directores.biografia }}
                 </p>

@@ -29,6 +29,22 @@
          </div>              
             {% endfor %}
         </div>
+        <br>
+        <br>
+        <nav class="blog-pagination text-center" aria-label="Pagination">
+          {% if page_obj.has_previous %}
+              <a class="btn btn-outline-primary rounded-pill"
+                 href="?page={{ page_obj.previous_page_number }}">Antes</a>
+          {% else %}
+              <a class="btn btn-outline-secondary rounded-pill disabled">Antes</a>
+          {% endif %}
+          {% if page_obj.has_next %}
+              <a class="btn btn-outline-primary rounded-pill"
+                 href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+          {% else %}
+              <a class="btn btn-outline-secondary rounded-pill disabled">Siguiente</a>
+          {% endif %}
+      </nav>
     </div>
 </section>
 <br>

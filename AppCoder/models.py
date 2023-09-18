@@ -21,14 +21,6 @@ class Directores(models.Model):
         self.slug = self.nombre.lower() + '-' + self.apellido.lower()
         super(Directores, self).save(*args, **kwargs)
     
-class Curadores(models.Model):
-    nombre =models.CharField(max_length=50)
-    apellido=models.CharField(max_length=50)
-    reseñas=models.ManyToManyField('Peliculas',blank=True)
-
-    def __str__(self):
-        return f'{self.nombre} {self.apellido}'
-    
     
 class Generos(models.Model):
     genero=models.CharField(max_length=50)
@@ -61,7 +53,7 @@ class Peliculas(models.Model):
         return self.titulo
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.titulo)
+        self.slug = slugify(self.titulo) +'-'+ str(self.autor_reseña)
         super(Peliculas, self).save(*args, **kwargs)
 
     
@@ -88,6 +80,14 @@ class Series(models.Model):
         self.slug = slugify(self.titulo)
         super(Series, self).save(*args, **kwargs)
 
+    
 
+class Curadores(models.Model):
+    nombre =models.CharField(max_length=50)
+    apellido=models.CharField(max_length=50)
+    reseñas=models.ManyToManyField('Peliculas',blank=True)
+
+    def __str__(self):
+        return f'{self.nombre} {self.apellido}'
 
 

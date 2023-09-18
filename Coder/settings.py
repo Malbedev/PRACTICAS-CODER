@@ -71,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATES[0]['OPTIONS']['context_processors'].append('AppCoder.context_processors.generos_contexto')
+
 WSGI_APPLICATION = 'Coder.wsgi.application'
 
 

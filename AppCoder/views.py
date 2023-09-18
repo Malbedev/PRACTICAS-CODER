@@ -16,32 +16,35 @@ def inicio(request):
     peliculas= Peliculas.objects.all()
     directores = Directores.objects.all()
     curadores= Curadores.objects.all()
-    generos = Generos.objects.all()
     destacada= Peliculas.objects.filter(destacada=True)
     
     context= {
          'peliculas' : peliculas,
          'directores': directores,
          'curadores': curadores,
-         'generos':generos,
          'destacada':destacada,
     }
     return render(request,"AppCoder/inicio.html",context=context)
 
 ##Peliculas##
 
+class PeliculasList(ListView):
+    model = Peliculas
+    template_name = 'AppCoder/peliculas.html'
+    context_object_name ='peliculas'
+    paginate_by = 2 
+
+    
 def peliculas(request):
     peliculas= Peliculas.objects.all()
     directores = Directores.objects.all()
     curadores= Curadores.objects.all()
-    generos = Generos.objects.all()
     destacada= Peliculas.objects.filter(destacada=True)
     
     context= {
          'peliculas' : peliculas,
          'directores': directores,
          'curadores': curadores,
-         'generos':generos,
          'destacada':destacada,
     }
     return render(request,"AppCoder/peliculas.html",context=context)
@@ -50,16 +53,14 @@ class ReseñaPeliculaDetalle(LoginRequiredMixin,DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
      
-     def get_context_data(self, **kwargs):
-         context = super().get_context_data(**kwargs)
-         context['generos']=Generos.objects.all()
-         return context
+   
 
 class CrearPelicula(LoginRequiredMixin,CreateView):
     model=Peliculas
     template_name='AppCoder/peliculas_formulario.html'
     fields=['titulo','genero','año','director','reseña','autor_reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'
+
 
 class EliminarPeliculas(DeleteView):
     model=Peliculas
@@ -71,7 +72,16 @@ class EditarPeliculas(LoginRequiredMixin,UpdateView):
     fields=['titulo','genero','año','director','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'
 
+  
 ##SERIES## 
+
+class SeriesList(ListView):
+    model = Series
+    template_name = 'AppCoder/series.html'
+    context_object_name ='series'
+    paginate_by = 2 
+
+
 
 def series(request):
      
@@ -94,15 +104,11 @@ class ReseñaSeriesDetalle(LoginRequiredMixin,DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
 
-     def get_context_data(self, **kwargs):
-         context = super().get_context_data(**kwargs)
-         context['generos']=Generos.objects.all()
-         return context
 
 class CrearSerie(LoginRequiredMixin,CreateView):
     model=Series
     template_name='AppCoder/series_formulario.html'
-    fields=['titulo','genero','año','temporadas','reseña','autor_reseña','cover','imagen','video_link']
+    fields=['titulo','genero','año','temporadas','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'    
 
     
@@ -118,12 +124,15 @@ class EditarSeries(LoginRequiredMixin,UpdateView):
     fields=['titulo','genero','año','temporadas','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'
     
+  
+
 ##DIRECTORES##
 
 def directores(request):
      directores = Directores.objects.all()
      series= Series.objects.all()
      peliculas= Peliculas.objects.all()
+    
 
      context= {
          'series' : series,
@@ -137,37 +146,39 @@ class DirectoresDetalle(LoginRequiredMixin,DetailView):
      model = Directores
      template_name= 'AppCoder/directores_detalle.html'
 
-@login_required
-def directores_formulario(request):
-    miFormulario = DirectoresFormulario(request.POST,request.FILES)
-    if request.method == 'POST': 
-        if miFormulario.is_valid():
-            data = miFormulario.cleaned_data
-            director =Directores(nombre=data['nombre'],apellido=data['apellido'],biografia=data['biografia'],citas=data['citas'],imagen =data['imagen'])
-            director.save()
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Director cargado con exito'})
-        else:
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Formulario Invalido'})
-    else:
-        miFormulario = DirectoresFormulario()
-        return render(request,'AppCoder/directores_formulario.html',{ 'miFormulario': miFormulario })
+     def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/directores-detalle/','')
+        context = super().get_context_data(**kwargs)
+        context['peliculas']=Peliculas.objects.filter(director__slug=query)
+        return context
+         
+        
+
+class CrearDirectores(LoginRequiredMixin,CreateView):
+    model=Directores
+    template_name='AppCoder/directores_formulario.html'
+    fields=['nombre','apellido','biografia','citas','imagen']
+    success_url='/user-post-lista/'   
+
+  
 
 ##BUSQUEDA##
 @login_required
 def busqueda(request):
+    generos = Generos.objects.all()
     if request.GET['titulo']:
 
         titulo = request.GET['titulo']
         pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
         serie=Series.objects.filter(Q(titulo__icontains = titulo))
         if pelicula:
-            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula})
+            return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula,'generos':generos})
         elif serie:
-            return render(request,'AppCoder/resultado_series.html',{'serie':serie})
+            return render(request,'AppCoder/resultado_series.html',{'serie':serie,'generos':generos})
         else: 
-            return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!'})
+            return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!','generos':generos})
     else:
-        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida'})
+        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida','generos':generos})
 
 ##Genero##
 
@@ -237,6 +248,7 @@ class UserPostLista(ListView):
     template_name= 'AppCoder/user_post_lista.html'
     context_object_name = 'peliculas'
     context_object_name = 'series'
+   
 
 
     def get_context_data(self, **kwargs):

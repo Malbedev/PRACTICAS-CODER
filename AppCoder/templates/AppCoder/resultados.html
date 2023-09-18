@@ -1,8 +1,33 @@
-{% extends "Base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Nerdflix</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-{% load static %}
+          <!-- Vendor CSS Files -->
+        
+        <link href="{% static 'AppCoder/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+        <link href="{% static 'AppCoder/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+        <link href="{% static 'AppCoder/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+        <link href="{% static 'AppCoder/assets/vendor/aos/aos.css'%}" rel="stylesheet">
 
-{% block contenidoQueCambia %}
+        <!-- Core theme CSS -->
+        <link href="{% static 'AppCoder/css/mi.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+     
+
+        {% include "navbar.html" %}
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <div class="page-header d-flex align-items-center">
@@ -10,8 +35,10 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-6 text-center">
           <br>
+          
+          <h1><i class="bi bi-incognito" style="font-size: 10rem; color: rgb(207, 47, 26)"></i></h1>
           <h1>OOOOO!!!</h1>
-          <p><i>{{mensaje}}</i></p>
+          <p><i><h4>{{mensaje}}</h4></i></p>
           <div class="nav-link"><a class="btn btn-primary" href="{% url 'inicio' %}">VolveR</a></div>
 
         </div>
@@ -22,5 +49,5 @@
 <br>
 <br>
 
-{% endblock %}
+
 

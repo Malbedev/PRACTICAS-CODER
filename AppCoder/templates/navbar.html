@@ -2,24 +2,36 @@
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <img id="logo" src="{% static 'AppCoder/IMG/pngwing.com.png' %}" >
-        <a class="navbar-brand" href="{% url 'inicio' %}"><i><b>NerdFliX</b></i> 
-        </a>
+        <a class="navbar-brand" href="{% url 'inicio' %}"><i><b>NerdFliX</b></i> </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                
-                    <form class="input-group" action="{% url 'busqueda' %}" method="get">
+                 <form class="input-group" action="{% url 'busqueda' %}" method="get">
                         <input name = "titulo" class="form-control" type="text" placeholder="Ingrese un titulo..." aria-label="Enter search term..." aria-describedby="button-search" />
                         <button class="btn btn-primary" id="button-search" type="submit">Buscar</button>
                     </form> 
-                <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Curadores</a></li>
+                   
                 <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Peliculas</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'series' %}">Series</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'directores' %}">Directores</a></li>
+                  <li class="nav-item dropdown">
+                    <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Generos
+                    </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            {% for genero in generos %}                                       
+                                <ul class=" list-unstyled text-center mb-1">
+                                    <li><a class=" bs-secondary text-decoration-none link" href="{% url 'generosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
+                                </ul>
+                            {% endfor %}
+                        </ul>
+                   </li>
+                
                 <li class="nav-item dropdown">
-                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    PoSt
+                    <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Post
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'seriesFormulario' %}">Series</a></li>
@@ -29,7 +41,7 @@
                 </li>                       
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
-                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                      {{user.username}}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">

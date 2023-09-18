@@ -18,24 +18,36 @@
                  
                     <h1 class="fw-bolder mb-1"> {{ peliculas.titulo }}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on {{ peliculas.fecha_creacion}} por {{ peliculas.autor_reseña}}</div>
+                    <div class="text-muted fst-italic mb-2"> {{ peliculas.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuario'  %}">{{ peliculas.autor_reseña}}</a></div>
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
+                    {% for genero in generos %}
                     <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
+                    {% endfor %}
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{ peliculas.imagen.url }}" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ peliculas.reseña }}</p>
-                   
-                </section>
-                  
-            </article>
-           
-            <!-- Comments section-->
+               
+                </section>    
+            </article>  
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">                         
+            <div class="mb-4">
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="card-header"><h4><i>Trailer</i></h4></div>
+                <div class="card">{% video peliculas.video_link 'small' %}</div>     
+                <br>
+                <br> 
+                 <!-- Comments section-->
             <section class="mb-5">
                 <div class="card bg-light">
                     <div class="card-body">
@@ -73,36 +85,12 @@
                                 <div class="fw-bold">Commenter Name</div>
                                 When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                             </div>
+                            
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-        <!-- Side widgets-->
-        <div class="col-lg-4">
-                          
-            <div class="card mb-4">
-                <div class="card-header">Categorias</div>
-                <div class="card-body">
-                   
-                    <div class="row">
-                        {% for genero in generos %}
-                        <div class="col-sm-6">                                        
-                            <ul class="list-unstyled mb-0">
-                                <li><a class=" bs-secondary text-decoration-none link" href="{% url 'generosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
-                            </ul>
-                        </div> 
-                        {% endfor %}
-
-                    </div>
-                     
-                </div>
-               
-            </div>
-        
-                <div class="card-header">Trailer</div>
-                <div class="card-body">{% video peliculas.video_link 'tiny' %}</div>
-           
+            </section>       
+            </div>         
         </div>
     </div>
 </div>    

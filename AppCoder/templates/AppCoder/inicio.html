@@ -8,7 +8,7 @@
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <!-- Post content-->
                     {% for pelicula in peliculas %}
                     {% if pelicula.destacada == True %}
@@ -16,29 +16,31 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder fst-italic mb-1"> Recomendacion Semanal!!</h1>
+                            <nav class="blog-pagination " aria-label="Pagination">
+                            <a class="btn btn-outline-primary rounded-pill"><h4>Destacada de la semana</h4></a>
+                           </nav>
                             <br>
-                            <h1 class="fw-bolder mb-1"> {{ pelicula.titulo }}</h1>
+                            <br>
+                            <h1><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on {{ pelicula.fecha_creacion}} por {{ pelicula.autor_reseña}}</div>
+                            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuario'  %}">{{ pelicula.autor_reseña}}</a></div>
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' pelicula.director.slug %}">{{ pelicula.director}} </a> 
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ pelicula.autor_reseña}}</a>
                             <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.año}}</a>
                             
-                        </header>
-                        <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="{{ pelicula.imagen.url }}" alt="..." /></figure>
-                        <!-- Post content-->
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4">{{ pelicula.reseña }}</p>
-                           
-                        </section>
-                          
                     </article>
                     {% endif %}
                     {% endfor %}
-
+                    <div class="col-lg-8">
+                        {% for pelicula in peliculas %}
+                        {% if pelicula.destacada == True %}
+                        <!-- Side widget-->
+                        <div class="card-header">Trailer</div>
+                        <div class="card-body">{% video pelicula.video_link 'medium'  %}</div>
+                        {% endif %}
+                        {% endfor %}
+                     </div>
+                    <br>
                     <!-- Comments section-->
                     <section class="mb-5">
                         <div class="card bg-light">
@@ -81,44 +83,9 @@
                             </div>
                         </div>
                     </section>
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                
-                    <div class="card mb-4">
-                        <div class="card-header">Categorias</div>
-                        <div class="card-body">
-                           
-                            <div class="row">
-                                {% for genero in generos %}
-                                <div class="col-sm-6">                                        
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a class=" bs-secondary text-decoration-none link" href="{% url 'generosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
-                                    </ul>
-                                </div> 
-                                {% endfor %}
-  
-                            </div>
-                             
-                        </div>
-                       
-                    </div>
-                    {% for pelicula in peliculas %}
-                    {% if pelicula.destacada == True %}
-                    <!-- Side widget-->
-                    <div class="card-header">Trailer</div>
-                    <div class="card-body">{% video pelicula.video_link 'tiny' %}</div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
+                </div>                   
             </div>
-        </div>
+         </div>
        
       
 {% endblock %} 

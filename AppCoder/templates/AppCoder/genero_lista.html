@@ -14,8 +14,7 @@
         <br>
         <br>
         {% for genero in generos %}
-          <div class="card">
-            <div class="card-header">{{genero}}</div>
+            <div class="header"><h3>{{genero}}</h3></div>
           </div>
         {% endfor %}
         </div>
@@ -44,12 +43,11 @@
           <div class="gallery-item h-100">
             <img src="{{serie.cover.url}}" class="img-fluid" alt="">
             <div class="gallery-links d-flex align-items-center justify-content-center">
-
               <a href="{% url 'series_detalle' serie.slug %}" class="details-link"><i class="bi bi-lightning"></i></a>
             </div>
           </div>
         </div>
-               
+                      
         {% endfor %}
   
         </div>
