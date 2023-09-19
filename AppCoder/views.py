@@ -115,7 +115,6 @@ class CrearSerie(LoginRequiredMixin,CreateView):
 
 class EliminarSeries(DeleteView):
     model=Series
-
     success_url='/user-post-lista/'
 
 class EditarSeries(LoginRequiredMixin,UpdateView):
@@ -185,11 +184,15 @@ def busqueda(request):
 class GeneroListaVista(LoginRequiredMixin,ListView):
      model = Generos
      template_name= 'AppCoder/genero_lista.html'
-     context_object_name = 'generos'
+     context_object_name='generos'
+     paginate_by=2
+     
+
      
      def get_context_data(self, **kwargs):
         query=self.request.path.replace('/generos-lista/','')
         context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('generos-lista')
         context['peliculas']=Peliculas.objects.filter(genero__slug=query)
         context['series']=Series.objects.filter(genero__slug=query)
         context['generos']=Generos.objects.filter(genero__icontains=query)
@@ -238,8 +241,18 @@ def registroUsuario(request):
         miFormulario= RegistroUserForm()
         return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario })
 
+class UsuariosDetalle(DeleteView):
+    model=User
+    template_name= 'AppCoder/usuarios_detalle.html'
+    context_object_name = 'user'
 
-
+    def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/usuarios-detalle/','')
+        context = super().get_context_data(**kwargs)
+        context['user']=User.objects.filter(id=query)
+        return context
+    
+@login_required
 def usuario(request):
      return render(request,"AppCoder/usuario.html")
 
@@ -249,8 +262,6 @@ class UserPostLista(ListView):
     context_object_name = 'peliculas'
     context_object_name = 'series'
    
-
-
     def get_context_data(self, **kwargs):
         query= self.request.user.id
         context = super().get_context_data(**kwargs)
@@ -258,7 +269,18 @@ class UserPostLista(ListView):
         context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
-
+class UserListaReseñas(ListView):
+    model= User
+    template_name= 'AppCoder/usuario_lista_reseñas.html'
+    context_object_name = 'peliculas'
+    context_object_name = 'series'
+   
+    def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/usuario-lista-reseñas/','')
+        context = super().get_context_data(**kwargs)
+        context['peliculas']=Peliculas.objects.filter(autor_reseña_id=query)
+        context['series']=Series.objects.filter(autor_reseña_id=query)
+        return context
 
 
 def resultados(request):

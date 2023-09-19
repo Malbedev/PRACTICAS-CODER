@@ -16,7 +16,7 @@
                  
                     <h1 class="fw-bolder mb-1"> {{ series.titulo }}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2"> {{ series.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuario'  %}">{{ series.autor_reseña}}</a></div>
+                    <div class="text-muted fst-italic mb-2"> {{ series.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuarios_detalle' series.autor_reseña.id  %}">{{ series.autor_reseña}}</a></div>
                     <!-- Post categories-->
                     <a class="badge bg-secondary text-decoration-none link-light" > Temporadas:{{series.temporadas }}</a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ series.año}}</a>
