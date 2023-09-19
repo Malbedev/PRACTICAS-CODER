@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django.db import models
 from django.shortcuts import render
 from .forms import *
 from .models import *
@@ -241,7 +242,7 @@ def registroUsuario(request):
         miFormulario= RegistroUserForm()
         return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario })
 
-class UsuariosDetalle(DeleteView):
+class UsuariosDetalle(LoginRequiredMixin,DetailView):
     model=User
     template_name= 'AppCoder/usuarios_detalle.html'
     context_object_name = 'user'
@@ -272,8 +273,6 @@ class UserPostLista(ListView):
 class UserListaReseñas(ListView):
     model= User
     template_name= 'AppCoder/usuario_lista_reseñas.html'
-    context_object_name = 'peliculas'
-    context_object_name = 'series'
    
     def get_context_data(self, **kwargs):
         query=self.request.path.replace('/usuario-lista-reseñas/','')
@@ -282,6 +281,15 @@ class UserListaReseñas(ListView):
         context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
 
+class EditarPerfilUsuario(UpdateView):
+    model:Perfil
+    template_name='AppCoder/perfil_usuario_form.html'
+    fields=['avatar','bio','link']
+    success_url='/usuario/'
+
+    def get_object(self):
+        profile,created=Perfil.objects.get_or_create(user=self.request.user)
+        return profile
 
 def resultados(request):
      return render(request,"AppCoder/resultado.html")

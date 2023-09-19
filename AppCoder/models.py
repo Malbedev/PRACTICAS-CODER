@@ -79,8 +79,7 @@ class Series(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.titulo)
         super(Series, self).save(*args, **kwargs)
-
-    
+  
 
 class Curadores(models.Model):
     nombre =models.CharField(max_length=50)
@@ -89,5 +88,11 @@ class Curadores(models.Model):
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
+
+class Perfil(models.Model):
+    user =models.OneToOneField(User,on_delete=models.CASCADE)
+    avatar=models.ImageField(null=True,blank=True)
+    bio=models.TextField(null=True,blank=True)
+    link=models.URLField(max_length=200,null=True,blank=True)
 
 

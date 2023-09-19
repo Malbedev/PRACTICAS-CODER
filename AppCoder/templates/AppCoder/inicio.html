@@ -24,7 +24,7 @@
                             <h1><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h1>
                             <!-- Post meta content-->
                   
-                            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuario' %}">{{ pelicula.autor_reseña}}</a></div>
+                            <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuarios_detalle' pelicula.autor_reseña.id  %}">{{ pelicula.autor_reseña}}</a></div>
                             <!-- Post categories-->
                             <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' pelicula.director.slug %}">{{ pelicula.director}} </a> 
                             <a class="badge bg-secondary text-decoration-none link-light">{{ pelicula.año}}</a>

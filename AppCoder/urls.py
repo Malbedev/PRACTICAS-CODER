@@ -29,6 +29,7 @@ urlpatterns = [
     path('editar-series/<pk>', EditarSeries.as_view(),name='EditarSeries'),
     path('usuarios-detalle/<pk>',UsuariosDetalle.as_view(),name='usuarios_detalle'),
     path('usuario-lista-reseñas/<pk>',UserListaReseñas.as_view(),name='usuario_lista_reseñas'),
+    path('usuario-perfil/',EditarPerfilUsuario.as_view(),name='usuario_perfil'),
     
     
 
