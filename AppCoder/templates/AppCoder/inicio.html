@@ -36,8 +36,7 @@
                         {% for pelicula in peliculas %}
                         {% if pelicula.destacada == True %}
                         <!-- Side widget-->
-                        <div class="card-header">Trailer</div>
-                        <div class="card-body">{% video pelicula.video_link 'medium'  %}</div>
+                        <div class="card-body">{% video pelicula.video_link 'huge'  %}</div>
                         {% endif %}
                         {% endfor %}
                      </div>

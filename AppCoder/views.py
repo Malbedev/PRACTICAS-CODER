@@ -80,7 +80,7 @@ class SeriesList(ListView):
     model = Series
     template_name = 'AppCoder/series.html'
     context_object_name ='series'
-    paginate_by = 2 
+    paginate_by = 4 
 
 
 
@@ -183,18 +183,14 @@ def busqueda(request):
 ##Genero##
 
 class GeneroListaVista(LoginRequiredMixin,ListView):
-     model = Generos
+     model = Series
      template_name= 'AppCoder/genero_lista.html'
-     context_object_name='generos'
+     context_object_name='series'
      paginate_by=2
-     
-
      
      def get_context_data(self, **kwargs):
         query=self.request.path.replace('/generos-lista/','')
         context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('generos-lista')
-        context['peliculas']=Peliculas.objects.filter(genero__slug=query)
         context['series']=Series.objects.filter(genero__slug=query)
         context['generos']=Generos.objects.filter(genero__icontains=query)
         return context
