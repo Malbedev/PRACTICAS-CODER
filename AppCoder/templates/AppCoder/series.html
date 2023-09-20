@@ -20,7 +20,7 @@
                 <ul class="dropdown-menu dropdown-menu-dark">
                     {% for genero in generos %}                                       
                         <ul class=" list-unstyled text-center mb-1">
-                            <li><a class=" bs-secondary text-decoration-none link" href="{% url 'generosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
+                            <li><a class=" bs-secondary text-decoration-none link" href="{% url 'SeriesGenerosLista' genero.slug  %}">{{ genero.genero}}</a></li>      
                         </ul>
                     {% endfor %}
                 </ul>

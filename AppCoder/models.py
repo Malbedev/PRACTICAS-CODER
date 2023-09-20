@@ -4,7 +4,6 @@ from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User
 
 
-
 class Directores(models.Model):
     nombre =models.CharField(max_length=50)
     apellido=models.CharField(max_length=50)
@@ -55,7 +54,6 @@ class Peliculas(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.titulo) +'-'+ str(self.autor_reseña)
         super(Peliculas, self).save(*args, **kwargs)
-
     
 
 class Series(models.Model):
@@ -88,6 +86,7 @@ class Curadores(models.Model):
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
+
 
 class Perfil(models.Model):
     user =models.OneToOneField(User,on_delete=models.CASCADE)

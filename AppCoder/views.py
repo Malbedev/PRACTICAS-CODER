@@ -1,17 +1,14 @@
-from typing import Any, Dict
-from django.db import models
+
+from django.views.generic import *
+from django.db.models import Q
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from .forms import *
 from .models import *
-from django.http import HttpResponse
-from django.views.generic import *
-from django.db.models.query import QuerySet
-from django.db.models import Q
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
-from django.contrib.auth import login,logout,authenticate
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user
+
 
 def inicio(request):
     peliculas= Peliculas.objects.all()
@@ -29,13 +26,6 @@ def inicio(request):
 
 ##Peliculas##
 
-class PeliculasList(ListView):
-    model = Peliculas
-    template_name = 'AppCoder/peliculas.html'
-    context_object_name ='peliculas'
-    paginate_by = 2 
-
-    
 def peliculas(request):
     peliculas= Peliculas.objects.all()
     directores = Directores.objects.all()
@@ -50,17 +40,29 @@ def peliculas(request):
     }
     return render(request,"AppCoder/peliculas.html",context=context)
 
+
 class ReseñaPeliculaDetalle(LoginRequiredMixin,DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
      
    
+class PeliculasList(ListView):
+    model = Peliculas
+    template_name = 'AppCoder/peliculas.html'
+    context_object_name ='peliculas'
+    paginate_by = 2 
+
 
 class CrearPelicula(LoginRequiredMixin,CreateView):
     model=Peliculas
     template_name='AppCoder/peliculas_formulario.html'
-    fields=['titulo','genero','año','director','reseña','autor_reseña','cover','imagen','video_link']
+    fields=['titulo','genero','año','director','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'
+
+    
+    def form_valid(self, form):
+        form.instance.autor_reseña = self.request.user
+        return super().form_valid(form)
 
 
 class EliminarPeliculas(DeleteView):
@@ -75,14 +77,6 @@ class EditarPeliculas(LoginRequiredMixin,UpdateView):
 
   
 ##SERIES## 
-
-class SeriesList(ListView):
-    model = Series
-    template_name = 'AppCoder/series.html'
-    context_object_name ='series'
-    paginate_by = 4 
-
-
 
 def series(request):
      
@@ -101,9 +95,17 @@ def series(request):
          }
     return render(request,"AppCoder/series.html",context=context)
 
+
 class ReseñaSeriesDetalle(LoginRequiredMixin,DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
+
+
+class SeriesList(ListView):
+    model = Series
+    template_name = 'AppCoder/series.html'
+    context_object_name ='series'
+    paginate_by = 4 
 
 
 class CrearSerie(LoginRequiredMixin,CreateView):
@@ -112,6 +114,10 @@ class CrearSerie(LoginRequiredMixin,CreateView):
     fields=['titulo','genero','año','temporadas','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'    
 
+
+    def form_valid(self, form):
+        form.instance.autor_reseña = self.request.user
+        return super().form_valid(form)
     
 
 class EliminarSeries(DeleteView):
@@ -123,8 +129,7 @@ class EditarSeries(LoginRequiredMixin,UpdateView):
     template_name='AppCoder/series_actualizar.html'
     fields=['titulo','genero','año','temporadas','reseña','cover','imagen','video_link']
     success_url='/user-post-lista/'
-    
-  
+     
 
 ##DIRECTORES##
 
@@ -152,8 +157,7 @@ class DirectoresDetalle(LoginRequiredMixin,DetailView):
         context['peliculas']=Peliculas.objects.filter(director__slug=query)
         return context
          
-        
-
+    
 class CrearDirectores(LoginRequiredMixin,CreateView):
     model=Directores
     template_name='AppCoder/directores_formulario.html'
@@ -161,7 +165,6 @@ class CrearDirectores(LoginRequiredMixin,CreateView):
     success_url='/user-post-lista/'   
 
   
-
 ##BUSQUEDA##
 @login_required
 def busqueda(request):
@@ -180,23 +183,48 @@ def busqueda(request):
     else:
         return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida','generos':generos})
 
+def resultados(request):
+     return render(request,"AppCoder/resultado.html")
+
 ##Genero##
 
-class GeneroListaVista(LoginRequiredMixin,ListView):
+class SeriesGenerosLista(LoginRequiredMixin,ListView):
      model = Series
-     template_name= 'AppCoder/genero_lista.html'
+     template_name= 'AppCoder/series_generos_lista.html'
      context_object_name='series'
      paginate_by=2
      
+      
+     def get_queryset(self):
+       query=self.request.path.replace('/series-generos-lista/','')
+       series_list = Series.objects.filter(genero__slug=query)
+       return series_list
+     
      def get_context_data(self, **kwargs):
-        query=self.request.path.replace('/generos-lista/','')
+        query=self.request.path.replace('/series-generos-lista/','')
         context = super().get_context_data(**kwargs)
-        context['series']=Series.objects.filter(genero__slug=query)
         context['generos']=Generos.objects.filter(genero__icontains=query)
         return context
-     
     
-
+class PeliculasGenerosLista(LoginRequiredMixin,ListView):
+     model =Peliculas
+     template_name= 'AppCoder/peliculas_generos_lista.html'
+     context_object_name='peliculas'
+     paginate_by=2
+     
+      
+     def get_queryset(self):
+       query=self.request.path.replace('/peliculas-generos-lista/','')
+       series_list = Peliculas.objects.filter(genero__slug=query)
+       return series_list
+     
+     def get_context_data(self, **kwargs):
+        query=self.request.path.replace('/peliculas-generos-lista/','')
+        context = super().get_context_data(**kwargs)
+        context['generos']=Generos.objects.filter(genero__icontains=query)
+        return context
+        
+    
 ##USUARIOS##
 
 def loginView(request):
@@ -287,5 +315,3 @@ class EditarPerfilUsuario(UpdateView):
         profile,created=Perfil.objects.get_or_create(user=self.request.user)
         return profile
 
-def resultados(request):
-     return render(request,"AppCoder/resultado.html")
