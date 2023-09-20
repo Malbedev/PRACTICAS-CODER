@@ -40,9 +40,13 @@
                     </ul>
                 </li>                       
                 {% if user.is_authenticated %}
+                {% if user.perfil.avatar %}
+                <img class="rounded-circle"  height="40px" width="40px"  src={{user.perfil.avatar.url}}   alt="..." />
+                {%endif%}
                 <li class="nav-item dropdown">
+                    
                     <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                     {{user.username}}
+                     @{{user.username}}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'usuario' %}">Mi Perfil</a></li>

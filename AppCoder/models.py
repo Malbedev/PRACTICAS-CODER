@@ -92,6 +92,7 @@ class Curadores(models.Model):
 class Perfil(models.Model):
     user =models.OneToOneField(User,on_delete=models.CASCADE)
     avatar=models.ImageField(null=True,blank=True)
+    imagen=models.ImageField(null=True,blank=True)
     bio=models.TextField(null=True,blank=True)
     link=models.URLField(max_length=200,null=True,blank=True)
 

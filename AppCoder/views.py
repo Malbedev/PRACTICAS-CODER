@@ -284,7 +284,7 @@ class UserListaReseñas(ListView):
 class EditarPerfilUsuario(UpdateView):
     model:Perfil
     template_name='AppCoder/perfil_usuario_form.html'
-    fields=['avatar','bio','link']
+    fields=['avatar','imagen','bio','link']
     success_url='/usuario/'
 
     def get_object(self):

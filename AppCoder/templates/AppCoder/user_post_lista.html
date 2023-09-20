@@ -5,13 +5,13 @@
 <br>
 <br>
 <br>
-<div class="page-header d-flex align-items">
-    <div class="container position-relative">
-      <div class="row d-flex justify-content">
-          <div class="col-lg-4 text">
-            <div class="card text-center">
-                <div class="card-header"><h4>Mis Peliculas</h4></div>
-                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'peliculasFormulario' %}" ><h6>Agregar Nueva Pelicula</h6></a>
+<div class="page-header d-flex align-items-center">
+    <div class="container position">
+      <div class="row justify-content-center">
+          <div class="col-lg-4 ">
+            <div class="text-decoration-none">
+                <div class="header"><h4>Mis Peliculas</h4></div>
+                <a class=" btn btn-outline-primary" href="{% url 'peliculasFormulario' %}" ><h8>Agregar Nueva Pelicula</h8></a>
             </div>
             <br>
         {% for pelicula in peliculas %}
@@ -43,11 +43,11 @@
             <br>
         {% endfor %}
         <br>
-            <div class="card text-center">
+            <div class=" text-white">
                 <div class="card-header"><h4>Mis Series</h4></div> 
-                <a class="badge bg-primary text-decoration-none link-light" href="{% url 'seriesFormulario' %}"><h6>Agregar Nueva Serie</h6></a> 
+                <a class=" btn btn-outline-primary" href="{% url 'seriesFormulario' %}"><h8>Agregar Nueva Serie</h8></a> 
             </div>
-            <br>
+            
         {% for serie in series %}
         <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
         <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}}</div> 
@@ -74,7 +74,7 @@
         </div>
         <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarSeries' serie.id %}">Editar </a>        
         <br>
-        <br>          
+               
         {% endfor %}
         </div>
       </div>
