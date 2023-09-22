@@ -75,7 +75,7 @@ class Series(models.Model):
         return self.titulo
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.titulo)
+        self.slug = slugify(self.titulo)+'-'+ str(self.autor_reseña)
         super(Series, self).save(*args, **kwargs)
   
 

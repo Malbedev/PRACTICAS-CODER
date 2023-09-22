@@ -24,6 +24,7 @@
 <section id="gallery" class="gallery">
     <div class="container-fluid">
         <div class="row gy-4 justify-content-center">
+{% if peliculas %}
     {% for pelicula in peliculas %}
         <div class="col-xl-2 col-lg-4 col-md-6">
           <div class="gallery-item h-100">
@@ -34,7 +35,7 @@
           </div>
         </div>
         {% endfor %}
-        {% if not Peliculas.genero  %} 
+{% else %} 
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 text-center">
               <h1><i class="bi bi-infinity" style="font-size: 10rem; color: rgb(225, 208, 30)"></i></h1>
@@ -43,7 +44,7 @@
               <div class="nav-link"><a class="btn btn-primary" href="{% url 'peliculas' %}">VolveR</a></div>
             </div>
           </div>
-        {% endif %}
+{% endif %}
     
         </div>
         <br>

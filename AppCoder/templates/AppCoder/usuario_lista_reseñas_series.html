@@ -13,12 +13,6 @@
         <br>
         <br>
         <br>
-        <br>
-        {% for genero in generos %}
-            <div class="header"><h3>{{genero}}</h3></div>
-          </div>
-        {% endfor %}
-        
         </div>
       </div>
     </div>
@@ -26,8 +20,7 @@
 <section id="gallery" class="gallery">
     <div class="container-fluid">
         <div class="row gy-4 justify-content-center">
-    {% if series %}
-        {% for serie in series %}     
+        {% for serie in series %} 
         <div class="col-xl-2 col-lg-4 col-md-6">
           <div class="gallery-item h-100">
             <img src="{{serie.cover.url}}" class="img-fluid" alt="">
@@ -36,22 +29,8 @@
             </div>
           </div>
         </div>
-        {% endfor %}                
-    {% else %}    
-    <br>
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-6 text-center">
-                <h1><i class="bi bi-infinity" style="font-size: 10rem; color: rgb(225, 208, 30)"></i></h1>
-                <p><i><h4>No hay series de este genero todavia!</h4></i></p>
-                <br>
-                <div class="nav-link"><a class="btn btn-primary" href="{% url 'series' %}">VolveR</a></div>
-                </div>
-            </div>
-    {% endif %} 
-        </div>
-        <br>
-        <br>
-        <br>
+                      
+        {% endfor %}
         <nav class="blog-pagination text-center" aria-label="Pagination">
             {% if page_obj.has_previous %}
                 <a class="btn btn-outline-primary rounded-pill"
@@ -66,18 +45,20 @@
                 <a class="btn btn-outline-secondary rounded-pill disabled">Siguiente</a>
             {% endif %}
         </nav>
+        </div>
     </div>
 </section>
 <br>
 <br>
-<br>
-<br>
 <br> 
 <br>
 <br>
 <br> 
 <br>
 <br> 
+<br>
+
+
 
 
 {% endblock %}

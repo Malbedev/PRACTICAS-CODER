@@ -34,7 +34,8 @@ urlpatterns = [
     path('usuario/',usuario,name='usuario'),
     path('usuario-perfil/',EditarPerfilUsuario.as_view(),name='usuario_perfil'),
     path('usuarios-detalle/<pk>',UsuariosDetalle.as_view(),name='usuarios_detalle'),
-    path('usuario-lista-reseñas/<pk>',UserListaReseñas.as_view(),name='usuario_lista_reseñas'),
+    path('usuario-lista-reseñas-series/<pk>',UserListaReseñasSeries.as_view(),name='usuario_lista_reseñas_series'),
+    path('usuario-lista-reseñas-peliculas/<pk>',UserListaReseñasPeliculas.as_view(),name='usuario_lista_reseñas_peliculas'),
     path('user-post-lista/', UserPostLista.as_view(),name='userPostLista'),
     
    

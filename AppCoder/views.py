@@ -189,7 +189,7 @@ def resultados(request):
 ##Genero##
 
 class SeriesGenerosLista(LoginRequiredMixin,ListView):
-     model = Series
+     model = Generos
      template_name= 'AppCoder/series_generos_lista.html'
      context_object_name='series'
      paginate_by=2
@@ -294,16 +294,30 @@ class UserPostLista(ListView):
         context['series']=Series.objects.filter(autor_reseña_id=query)
         return context
      
-class UserListaReseñas(ListView):
+class UserListaReseñasSeries(ListView):
     model= User
-    template_name= 'AppCoder/usuario_lista_reseñas.html'
+    template_name= 'AppCoder/usuario_lista_reseñas_series.html'
+    context_object_name='series'
+    paginate_by=2
    
-    def get_context_data(self, **kwargs):
-        query=self.request.path.replace('/usuario-lista-reseñas/','')
-        context = super().get_context_data(**kwargs)
-        context['peliculas']=Peliculas.objects.filter(autor_reseña_id=query)
-        context['series']=Series.objects.filter(autor_reseña_id=query)
-        return context
+    def get_queryset(self):
+       query=self.request.path.replace('/usuario-lista-reseñas-series/','')
+       series_list = Series.objects.filter(autor_reseña_id=query)
+       return series_list
+    
+class UserListaReseñasPeliculas(ListView):
+    model= User
+    template_name= 'AppCoder/usuario_lista_reseñas_peliculas.html'
+    context_object_name='peliculas'
+    paginate_by=2
+   
+    def get_queryset(self):
+       query=self.request.path.replace('/usuario-lista-reseñas-peliculas/','')
+       series_list = Peliculas.objects.filter(autor_reseña_id=query)
+       return series_list
+    
+    
+
 
 class EditarPerfilUsuario(UpdateView):
     model:Perfil
