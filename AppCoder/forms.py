@@ -52,7 +52,7 @@ class RegistroUserForm(UserCreationForm):
         help_texts= {k:"" for k in fields}
 
 
-class ActualizarUserForm(UserChangeForm):
+class  ActualizarUserForm(UserChangeForm):
     password=forms.CharField(help_text='',widget=forms.HiddenInput(),required=False)
 
 
