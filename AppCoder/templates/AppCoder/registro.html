@@ -13,7 +13,7 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-4 text-center">
           <br>
-          <p><i>{{mensaje}}</i></p>
+          <p><i><h4>{{mensaje}}</h4></i></p>
           <form action="{% url 'registro' %}"method="post" enctype="multipart/form-data"> 
         
             {% csrf_token %}

@@ -192,7 +192,7 @@ class SeriesGenerosLista(LoginRequiredMixin,ListView):
      model = Generos
      template_name= 'AppCoder/series_generos_lista.html'
      context_object_name='series'
-     paginate_by=2
+     paginate_by=4
      
       
      def get_queryset(self):
@@ -210,7 +210,7 @@ class PeliculasGenerosLista(LoginRequiredMixin,ListView):
      model =Peliculas
      template_name= 'AppCoder/peliculas_generos_lista.html'
      context_object_name='peliculas'
-     paginate_by=2
+     paginate_by=4
      
       
      def get_queryset(self):
@@ -227,6 +227,10 @@ class PeliculasGenerosLista(LoginRequiredMixin,ListView):
     
 ##USUARIOS##
 
+@login_required
+def usuario(request):
+     return render(request,"AppCoder/usuario.html")
+
 def loginView(request):
 
     if request.method =='POST':
@@ -240,7 +244,7 @@ def loginView(request):
 
             if user:
               login(request,user)
-              return render(request,'AppCoder/inicio.html',{"mensaje":f'{usuario.capitalize()}'})
+              return render(request,'AppCoder/usuario.html',{"mensaje":f' Bienvenido {usuario}'})
             else:
                return render(request,'AppCoder/login.html',{'miFormulario': miFormulario ,"mensaje":f'Datos Incorrectos'})
         else:
@@ -256,15 +260,42 @@ def registroUsuario(request):
         if miFormulario.is_valid():
             data = miFormulario.cleaned_data
             usuario=data['username']
+            email=data['email']
             miFormulario.save()
             miFormulario= AuthenticationForm()
-            return render(request,'AppCoder/login.html',{ 'miFormulario': miFormulario ,"mensaje":f'Bienvenidx {usuario.capitalize()} !!'})
+            return render(request,'AppCoder/login.html',{ 'miFormulario': miFormulario ,"mensaje":f'Bienvenidx @{usuario} !!'})
             
         else:    
             return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario ,"mensaje":'Formulario Invalido'})   
     else:
         miFormulario= RegistroUserForm()
         return render(request,'AppCoder/registro.html',{ 'miFormulario': miFormulario })
+    
+def usuario_actualizar_pass(request):
+
+    usuario=request.user
+
+    miFormulario= ActualizarUserForm(request.POST, instance=request.user)
+
+    if request.method =='POST':
+
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            usuario.username=data['username']
+            usuario.email=data['email']
+            usuario.set_password(data['password1'])
+            usuario.save()
+            miFormulario= AuthenticationForm()
+            return render(request,'AppCoder/login.html',{'miFormulario': miFormulario,"mensaje":f' Datos Actualizados correctamente !!'})
+            
+        else:    
+            return render(request,'AppCoder/usuario_actualizar_pass.html',{ 'miFormulario': miFormulario ,"mensaje":'Formulario Invalido'})   
+    else:
+        miFormulario= ActualizarUserForm(instance=request.user)
+        return render(request,'AppCoder/usuario_actualizar_pass.html',{ 'miFormulario': miFormulario })
+
+
+
 
 class UsuariosDetalle(LoginRequiredMixin,DetailView):
     model=User
@@ -277,9 +308,7 @@ class UsuariosDetalle(LoginRequiredMixin,DetailView):
         context['user']=User.objects.filter(id=query)
         return context
     
-@login_required
-def usuario(request):
-     return render(request,"AppCoder/usuario.html")
+
 
 class UserPostLista(ListView):
     model= User
@@ -298,7 +327,7 @@ class UserListaReseñasSeries(ListView):
     model= User
     template_name= 'AppCoder/usuario_lista_reseñas_series.html'
     context_object_name='series'
-    paginate_by=2
+    paginate_by=4
    
     def get_queryset(self):
        query=self.request.path.replace('/usuario-lista-reseñas-series/','')
@@ -309,15 +338,18 @@ class UserListaReseñasPeliculas(ListView):
     model= User
     template_name= 'AppCoder/usuario_lista_reseñas_peliculas.html'
     context_object_name='peliculas'
-    paginate_by=2
+    paginate_by=4
    
     def get_queryset(self):
        query=self.request.path.replace('/usuario-lista-reseñas-peliculas/','')
        series_list = Peliculas.objects.filter(autor_reseña_id=query)
        return series_list
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['peliculas']=Peliculas.objects.all()
+        return context
     
-
 
 class EditarPerfilUsuario(UpdateView):
     model:Perfil

@@ -37,6 +37,7 @@ urlpatterns = [
     path('usuario-lista-reseñas-series/<pk>',UserListaReseñasSeries.as_view(),name='usuario_lista_reseñas_series'),
     path('usuario-lista-reseñas-peliculas/<pk>',UserListaReseñasPeliculas.as_view(),name='usuario_lista_reseñas_peliculas'),
     path('user-post-lista/', UserPostLista.as_view(),name='userPostLista'),
+    path('usuario-actualizar-pass/',usuario_actualizar_pass,name='usuario_actualizar_pass'),
     
    
     

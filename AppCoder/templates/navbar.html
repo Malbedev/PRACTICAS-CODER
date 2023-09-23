@@ -26,14 +26,14 @@
                         <li><a class="dropdown-item" href="{% url 'directoresFormulario' %}">Directores</a></li>
                     </ul>
                 </li>                       
-                {% if user.is_authenticated %}
-                    {% if user.perfil.avatar %}
-                    <img class="rounded-circle"  height="40px" width="40px"  src={{user.perfil.avatar.url}}   alt="..." />
+                {% if request.user.is_authenticated %}
+                {% if request.user.perfil.avatar %}
+                    <img class="rounded-circle"  height="40px" width="40px"  src={{request.user.perfil.avatar.url}}   alt="..." />
                     {%endif%}
                         <li class="nav-item dropdown">
                     
                     <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                     @{{user.username}}
+                     @{{request.user}}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'usuario' %}">Mi Perfil</a></li>

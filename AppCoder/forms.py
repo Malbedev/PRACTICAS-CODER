@@ -42,10 +42,31 @@ class DirectoresFormulario(forms.Form):
 
 class RegistroUserForm(UserCreationForm):
     username=forms.CharField()
+    email=forms.EmailField()
     password1=forms.CharField(label='Contraseña',widget=forms.PasswordInput)
     password2=forms.CharField(label='Repetir Contraseña',widget=forms.PasswordInput)
 
-    class meta:
+    class Meta:
         model=User 
-        fields= ['username','password1','password2']
+        fields= ['username','email','password1','password2']
         help_texts= {k:"" for k in fields}
+
+
+class ActualizarUserForm(UserChangeForm):
+    password=forms.CharField(help_text='',widget=forms.HiddenInput(),required=False)
+
+
+    password1=forms.CharField(label='Contraseña',widget=forms.PasswordInput)
+    password2=forms.CharField(label='Repetir Contraseña',widget=forms.PasswordInput)
+    
+    class Meta:
+        model=User 
+        fields=['username','email','password1','password2']
+        help_texts= {k:"" for k in fields}      
+
+    def clean_password2(self):
+        print(self.cleaned_data)
+        password2=self.cleaned_data['password2']
+        if password2 != self.cleaned_data['password1']:
+            raise forms.ValidationError('Las contraseñas no coinciden')
+        return password2

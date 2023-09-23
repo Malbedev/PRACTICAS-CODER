@@ -12,8 +12,18 @@
     {% for user in user %}
     <div class=" text-center">
         <h2> @{{user.username}}</h2>
-        <a class="cta-btn" href="{% url 'usuario_lista_reseñas_series' user.id  %}"><h5>Series</h5></a>
-        <a class="cta-btn" href="{% url 'usuario_lista_reseñas_peliculas' user.id  %}"><h5>Peliculas</h5></a>
+        <li class="list-unstyled dropdown-center">
+            <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="">
+            <h6>Reseñas</h6>
+            </button>
+                <ul class="dropdown-menu dropdown-menu-dark">                                    
+                    <ul class=" list-unstyled text-center mb-1">
+                        <li><a class="cta-btn" href="{% url 'usuario_lista_reseñas_series' user.id  %}"><h7>Series</h7></a></li> 
+                        <li><a class="cta-btn" href="{% url 'usuario_lista_reseñas_peliculas' user.id  %}"><h7>Peliculas</h7></a></li> 
+                    </ul>
+                </ul>
+           </li>
+        <br>
         <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
     </div>   
         <div class="row">
@@ -70,6 +80,7 @@
 <br>
 <br>
 <br>
+
 
 
 {% endblock %}
