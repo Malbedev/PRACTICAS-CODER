@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User
-
+from datetime import date
 
 class Directores(models.Model):
     nombre =models.CharField(max_length=50)
@@ -93,6 +93,14 @@ class Perfil(models.Model):
     avatar=models.ImageField(null=True,blank=True)
     imagen=models.ImageField(null=True,blank=True)
     bio=models.TextField(null=True,blank=True)
-    link=models.URLField(max_length=200,null=True,blank=True)
+    fecha_nac = models.DateField(null=True,blank=True,verbose_name='Fecha de nacimiento')
+    ciudad=models.CharField(max_length=200,null=True,blank=True)
+    pais=models.CharField(max_length=200,null=True,blank=True)
+    web=models.URLField(max_length=200,null=True,blank=True)
+    redes=models.URLField(max_length=200,null=True,blank=True)
 
 
+
+    def calcular_años(self):
+        edad=date.today().year - self.fecha_nac.year
+        return edad

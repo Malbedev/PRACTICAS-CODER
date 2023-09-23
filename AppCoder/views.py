@@ -244,7 +244,7 @@ def loginView(request):
 
             if user:
               login(request,user)
-              return render(request,'AppCoder/usuario.html',{"mensaje":f' Bienvenido {usuario}'})
+              return render(request,'AppCoder/usuario.html',{"mensaje":f' Bienvenido {usuario}!!'})
             else:
                return render(request,'AppCoder/login.html',{'miFormulario': miFormulario ,"mensaje":f'Datos Incorrectos'})
         else:
@@ -286,7 +286,7 @@ def usuario_actualizar_pass(request):
             usuario.set_password(data['password1'])
             usuario.save()
             miFormulario= AuthenticationForm()
-            return render(request,'AppCoder/login.html',{'miFormulario': miFormulario,"mensaje":f' Datos Actualizados correctamente !!'})
+            return render(request,'AppCoder/login.html',{'miFormulario': miFormulario,"mensaje":f' Datos Actualizados correctamente!! Vuelva a logearse con su contraseña nueva.'})
             
         else:    
             return render(request,'AppCoder/usuario_actualizar_pass.html',{ 'miFormulario': miFormulario ,"mensaje":'Formulario Invalido'})   
@@ -354,7 +354,7 @@ class UserListaReseñasPeliculas(ListView):
 class EditarPerfilUsuario(UpdateView):
     model:Perfil
     template_name='AppCoder/perfil_usuario_form.html'
-    fields=['avatar','imagen','bio','link']
+    fields=['avatar','imagen','bio', 'fecha_nac','ciudad','pais','web','redes']
     success_url='/usuario/'
 
     def get_object(self):
