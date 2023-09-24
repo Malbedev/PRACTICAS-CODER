@@ -5,6 +5,7 @@ from .views import *
 urlpatterns = [
 
     path('',inicio,name='inicio'),
+    path('about/', about, name='about'),
     #Peliculas#
     path('peliculas/', PeliculasList.as_view(),name='peliculas'),
     path('peliculas-formulario/', CrearPelicula.as_view(),name='peliculasFormulario'),

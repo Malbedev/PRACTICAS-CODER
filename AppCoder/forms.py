@@ -20,7 +20,6 @@ class PeliculasFormulario(forms.Form):
 class SeriesFormulario(forms.Form):
 
     titulo =forms.CharField(max_length=50,required=True)
- 
     genero= forms.ModelMultipleChoiceField(queryset=Generos.objects.all(),required=True)
     temporadas=forms.IntegerField(required=True)
     año=forms.IntegerField(required=True)

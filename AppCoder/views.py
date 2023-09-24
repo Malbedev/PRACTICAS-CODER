@@ -12,17 +12,23 @@ from .models import *
 
 def inicio(request):
     peliculas= Peliculas.objects.all()
+    series= Series.objects.all()
     directores = Directores.objects.all()
     curadores= Curadores.objects.all()
     destacada= Peliculas.objects.filter(destacada=True)
+    destacada= Series.objects.filter(destacada=True)
     
     context= {
          'peliculas' : peliculas,
+         'series':series,
          'directores': directores,
          'curadores': curadores,
          'destacada':destacada,
     }
     return render(request,"AppCoder/inicio.html",context=context)
+
+def about(request):
+    return render(request, 'AppCoder/about.html', {})
 
 ##Peliculas##
 
@@ -240,7 +246,7 @@ def loginView(request):
 
             if user:
               login(request,user)
-              return render(request,'AppCoder/inicio.html',{"mensaje":f'{usuario.capitalize()}'})
+              return render(request,"AppCoder/about.html",{"mensaje":f' Hola {usuario},bienvenidx!'})
             else:
                return render(request,'AppCoder/login.html',{'miFormulario': miFormulario ,"mensaje":f'Datos Incorrectos'})
         else:
@@ -345,6 +351,7 @@ class EditarPerfilUsuario(UpdateView):
     template_name='AppCoder/perfil_usuario_form.html'
     fields=['avatar','imagen','bio', 'fecha_nac','ciudad','pais','web','redes']
     success_url='/usuario/'
+    
 
     def get_object(self):
         profile,created=Perfil.objects.get_or_create(user=self.request.user)

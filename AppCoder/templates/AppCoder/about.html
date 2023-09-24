@@ -1,0 +1,75 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+
+    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+ 
+
+        <!-- ======= End Page Header ======= -->
+        <div class="page-header d-flex align-items-center">
+          <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-6 text-center">
+                <br>
+                <p><i><h4>{{mensaje}}</h4></i></p>
+                <img id="#logo" width="100" height="100" src="{% static 'AppCoder/IMG/pngwing.com.png' %}" >
+
+                <h2>Que es Nerflix??</h2>
+                <p><i>"Somos una comunidad de cinefilos con ganas de que todo el mundo tenga algo bello para ver"</i></p>
+               
+                <h4>Como generar contenido?</h4>
+                
+                <p>Somos una comunidad de cinefilos con ganas de que todo el mundo tenga algo bello para ver</p>
+                <hr class="d-none d-md-block">
+                <br>
+                <h3 style="color: #fd7e14;"> Creador/desarrolador</h3>
+                <p><i><h4>Mauro Alberelli</h4></i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+          <div class="container">
+    
+            <div class="row gy-4 justify-content-center">
+                
+              <div class="col-lg-3">
+                <img class="rounded-circle"  height="300px" width="300px" src="{% static 'AppCoder/IMG/Pablo-Larrain_Foto_JuanPabloMontalva_web_1-1.jpg' %}"href="" class="img-fluid" alt="">               
+              </div>
+              <div class="col-lg-5 content">
+                <h2>Bio</h2>
+                <p class="fst-italic py-3">
+                    hola soy mauro . Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Purus sit amet volutpat consequat. Ante metus dictum at tempor commodo ullamcorper. Netus et malesuada fames ac turpis egestas integer. Condimentum vitae sapien pellentesque habitant.
+                </p>    
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul>
+                      <li><i class=""></i> <strong></strong> <span>{{user.perfil.fecha_nac}}</span></li>
+                      <li><i class=""></i> <strong>Edad:</strong> <span>{{user.perfil.calcular_años}}</span></li>
+                      <li><i class=""></i> <strong>Ciudad:</strong> <span>{{user.perfil.ciudad}}, {{user.perfil.pais}}</span></li>
+                     
+                    </ul>
+                  </div>
+                  <div class="col-lg-12">
+                    <ul>
+                      <li><i class=""></i> <strong>Web:</strong> <span><a class="" href={{user.perfil.web}} target="_blank">{{user.perfil.web}}</a></span></li>
+                     
+                      <li><i class=""></i> <strong>Email:</strong> <span>{{user.email}}</span></li>
+                    
+                      <a></a><li><i class=""></i> <strong>Redes:</strong> <a class="" href={{user.perfil.redes}} target="_blank">{{user.perfil.redes}}</a></span></li>
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+          </div>
+        </section><!-- End About Section -->
+    <br>
+    <br>
+    <br>
+{% endblock %}

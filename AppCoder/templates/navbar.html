@@ -8,6 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                  <form class="input-group" action="{% url 'busqueda' %}" method="get">
                         <input name = "titulo" class="form-control" type="text" placeholder="Ingrese un titulo..." aria-label="Enter search term..." aria-describedby="button-search" />
                         <button class="btn btn-primary" id="button-search" type="submit">Buscar</button>

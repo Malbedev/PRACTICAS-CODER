@@ -41,35 +41,33 @@
               <div class="row">
                 <div class="col-lg-12">
                   <ul>{% if user.perfil.fecha_nac %}
-                    <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>{{user.perfil.fecha_nac}}</span></li>
+                    <li><i class=""></i> <span>{{user.perfil.fecha_nac}}</span></li>
                     {%endif%}
                     {% if user.perfil.fecha_nac %}
-                    <li><i class="bi bi-chevron-right"></i> <strong>Edad:</strong> <span>{{user.perfil.calcular_años}}</span></li>
+                    <li><i class=""></i> <strong>Edad:</strong> <span>{{user.perfil.calcular_años}}</span></li>
                     {%endif%}
                     {% if user.perfil.ciudad %}
-                    <li><i class="bi bi-chevron-right"></i> <strong>Ciudad:</strong> <span>{{user.perfil.ciudad}}, {{user.perfil.pais}}</span></li>
+                    <li><i class=""></i> <strong>Ciudad:</strong> <span>{{user.perfil.ciudad}}, {{user.perfil.pais}}</span></li>
                     {%endif%}
                   </ul>
                 </div>
                 <div class="col-lg-12">
                   <ul>
                     {% if user.perfil.web %}
-                    <li><i class="bi bi-chevron-right"></i> <strong>Web:</strong> <span><a class="" href={{user.perfil.web}} target="_blank">{{user.perfil.web}}</a></span></li>
+                    <li><i class=""></i> <strong>Web:</strong> <span><a class="" href={{user.perfil.web}} target="_blank">{{user.perfil.web}}</a></span></li>
                     {%endif%}
                     {% if user.email %}
-                    <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>{{user.email}}</span></li>
+                    <li><i class=""></i> <strong>Email:</strong> <span>{{user.email}}</span></li>
                     {%endif%}
                     {% if user.perfil.redes %}
-                    <a></a><li><i class="bi bi-chevron-right"></i> <strong>Redes:</strong> <a class="" href={{user.perfil.redes}} target="_blank">{{user.perfil.redes}}</a></span></li>
+                    <a></a><li><i class=""></i> <strong>Redes:</strong> <a class="" href={{user.perfil.redes}} target="_blank">{{user.perfil.redes}}</a></span></li>
                     {%endif%}
                   </ul>
                 </div>
               </div>
             </div>
-          </div>
-          
-        </div>   
-        
+          </div>          
+        </div>      
 <br>
 <br>
 <br>
