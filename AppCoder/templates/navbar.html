@@ -10,11 +10,11 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                  <form class="input-group" action="{% url 'busqueda' %}" method="get">
-                        <input name = "titulo" class="form-control" type="text" placeholder="Ingrese un titulo..." aria-label="Enter search term..." aria-describedby="button-search" />
+                        <input name = "titulo" class="form-control" type="text" placeholder="Ingrese un título..." aria-label="Enter search term..." aria-describedby="button-search" />
                         <button class="btn btn-primary" id="button-search" type="submit">Buscar</button>
                     </form> 
                    
-                <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Peliculas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Películas</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'series' %}">Series</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'directores' %}">Directores</a></li>
                 <li class="nav-item dropdown">
@@ -23,7 +23,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'seriesFormulario' %}">Series</a></li>
-                        <li><a class="dropdown-item" href="{% url 'peliculasFormulario' %}">Peliculas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'peliculasFormulario' %}">Películas</a></li>
                         <li><a class="dropdown-item" href="{% url 'directoresFormulario' %}">Directores</a></li>
                     </ul>
                 </li>                       

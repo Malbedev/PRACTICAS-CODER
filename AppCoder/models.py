@@ -104,3 +104,14 @@ class Perfil(models.Model):
     def calcular_años(self):
         edad=date.today().year - self.fecha_nac.year
         return edad
+    
+class Comentarios(models.Model):
+    contenido= models.TextField(max_length=1000,help_text='Ingrese un comentario')
+    autor= models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    fecha_comentario=models.DateTimeField(auto_now_add=True)
+    peliculas=models.ForeignKey(Peliculas,on_delete=models.CASCADE,blank=True,null=True)
+    series=models.ForeignKey(Series,on_delete=models.CASCADE,blank=True,null=True)
+
+    class Meta:
+        ordering= ['-fecha_comentario']
+

@@ -8,19 +8,21 @@
 <div class="page-header d-flex align-items-center">
     <div class="container position">
       <div class="row justify-content-center">
-          <div class="col-lg-4 ">
-            <div class="text-decoration-none">
+          <div class="col-lg-6 ">
+            <div class="text-decoration-none text-center">
                 <div class="header"><h4>Mis Peliculas</h4></div>
                 <a class=" btn btn-outline-primary" href="{% url 'peliculasFormulario' %}" ><h8>Agregar Nueva Pelicula</h8></a>
             </div>
             <br>
         {% for pelicula in peliculas %}
+    <div class="text-decoration-none text-center">
             <h2><a class="fw-bolder mb-1" href="{% url 'peliculas_detalle' pelicula.slug %}">{{ pelicula.titulo }}</a></h2>
             <div class="text-muted fst-italic mb-2"> {{ pelicula.fecha_creacion}} </div> 
+            
             <!-- Button trigger modal -->
-            <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{pelicula.id}}">
+            <div type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{pelicula.id}}">
                 Eliminar
-            </button>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal{{pelicula.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -30,7 +32,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"data-bs-dismiss="modal">No</button>
                     <form action="{% url 'EliminarPeliculas' pelicula.id %}" method="post">{% csrf_token %}
                         <button type="submit" class="btn btn-primary">Confirmar </button> 
                     </form>  
@@ -41,9 +43,10 @@
             <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarPeliculas' pelicula.id %}">Editar </a>        
             <br>
             <br>
+         
         {% endfor %}
         <br>
-            <div class=" text-white">
+            <div class=" text-white text-center" >
                 <div class="card-header"><h4>Mis Series</h4></div> 
                 <a class=" btn btn-outline-primary" href="{% url 'seriesFormulario' %}"><h8>Agregar Nueva Serie</h8></a> 
             </div>
@@ -52,9 +55,9 @@
         <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
         <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}}</div> 
         <!-- Button trigger modal -->
-        <button type="button" class="badge bg-secondary text-decoration-none link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{serie.id}}">
+       <div type="button" class="badge bg-secondary  link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{serie.id}}">
             Eliminar
-        </button>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal{{serie.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -64,7 +67,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"data-bs-dismiss="modal">No</button>
                 <form action="{% url 'EliminarSeries' serie.id %}" method="post">{% csrf_token %}
                     <button type="submit" class="btn btn-primary">Confirmar </button> 
                 </form>  
@@ -76,6 +79,7 @@
         <br>
                
         {% endfor %}
+    </div>       
         </div>
       </div>
     </div>

@@ -187,7 +187,7 @@ def busqueda(request):
         else: 
             return render(request,'AppCoder/resultados.html',{"mensaje":'Lo sentimos :( no hubo coincidencias!','generos':generos})
     else:
-        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Invalida','generos':generos})
+        return render(request,'AppCoder/resultados.html',{"mensaje":'Busqueda Inválida','generos':generos})
 
 def resultados(request):
      return render(request,"AppCoder/resultado.html")
