@@ -22,15 +22,16 @@
     </div>
     </div>
 </div>
-</div><!-- End Page Header -->
+</div>
       <section id="about" class="about">
         <div class="container">
   
           <div class="row gy-4 justify-content-center">
             <div class="col-lg-4">
             {% if user.perfil.imagen %}
-              <img src={{user.perfil.imagen.url}} class="img-fluid" alt="">
-              
+              <img src={{user.perfil.imagen.url}}  width="400" height="480" class="" alt="">
+            {% else %}
+            <img src="{% static 'AppCoder/IMG/no-avatar.jpg' %}" width="400" height="" class="" alt="">
             {%endif%}
             </div>
             <div class="col-lg-5 content">

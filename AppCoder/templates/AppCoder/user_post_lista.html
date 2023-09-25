@@ -54,11 +54,11 @@
         {% for serie in series %}
         <h2><a class="fw-bolder mb-1" href="{% url 'series_detalle' serie.slug %}">{{ serie.titulo }}</a></h2>
         <div class="text-muted fst-italic mb-2"> {{ serie.fecha_creacion}}</div> 
-        <!-- Button trigger modal -->
+    
        <div type="button" class="badge bg-secondary  link-light"data-bs-toggle="modal" data-bs-target="#exampleModal{{serie.id}}">
             Eliminar
         </div>
-        <!-- Modal -->
+      
         <div class="modal fade" id="exampleModal{{serie.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -79,7 +79,8 @@
         <br>
                
         {% endfor %}
-    </div>       
+    </div>     
+</div>   
         </div>
       </div>
     </div>
@@ -98,6 +99,10 @@
 <br> 
 <br> 
 <br>
+<br> 
+<br> 
+<br> 
+<br> 
 <br> 
 <br> 
 <br> 

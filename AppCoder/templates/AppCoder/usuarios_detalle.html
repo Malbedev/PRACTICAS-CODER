@@ -11,7 +11,10 @@
     <div class="col-lg-6 ">
     {% for user in user %}
     <div class=" text-center">
-        <h2> @{{user.username}}</h2>
+        {% if request.user.perfil.avatar %}
+         <img class="rounded-circle"  height="100px" width="100px" src={{user.perfil.avatar.url}}>
+         {%endif%}
+         <h2>@{{user.username}}</h2>
         <li class="list-unstyled dropdown-center">
             <button class="btn btn-dark dropdown" data-bs-toggle="dropdown" aria-expanded="">
             <h6>Reseñas</h6>
@@ -29,7 +32,7 @@
     </div>
     </div>
 </div>
-</div><!-- End Page Header -->
+</div>
   <br>
   <section id="about" class="about">
     <div class="container">
@@ -37,8 +40,9 @@
       <div class="row gy-4 justify-content-center">
         <div class="col-lg-4">
         {% if user.perfil.imagen %}
-          <img src={{user.perfil.imagen.url}} class="img-fluid" alt="">
-          
+          <img src={{user.perfil.imagen.url}} width="400" height="480"   class="" alt="">
+          {% else %}
+          <img src="{% static 'AppCoder/IMG/no-avatar.jpg' %}" width="400" height="" class="" alt="">   
         {%endif%}
         </div>
         <div class="col-lg-5 content">

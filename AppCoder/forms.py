@@ -69,3 +69,10 @@ class  ActualizarUserForm(UserChangeForm):
         if password2 != self.cleaned_data['password1']:
             raise forms.ValidationError('Las contraseñas no coinciden')
         return password2
+    
+class ComentarioForm(forms.ModelForm):
+    contenido=forms.CharField(label='Ingreses un comentario')
+
+    class Meta:
+        model=Comentarios
+        fields =['contenido']

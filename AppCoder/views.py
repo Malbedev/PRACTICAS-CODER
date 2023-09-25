@@ -1,6 +1,9 @@
 
+from django.http import HttpResponse
 from django.views.generic import *
+from django.views.generic.detail import SingleObjectMixin
 from django.db.models import Q
+from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.decorators import login_required
@@ -50,14 +53,53 @@ def peliculas(request):
 class ReseñaPeliculaDetalle(LoginRequiredMixin,DetailView):
      model = Peliculas
      template_name= 'AppCoder/peliculas_detalle.html'
+
+     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form']=ComentarioForm()
+        return context
+     
+class PeliculasFormViews(SingleObjectMixin,FormView):
+     template_name= 'AppCoder/peliculas_detalle.html'
+     form_class=ComentarioForm
+     model=Peliculas
+
+     def post(self,request,*args,**kargs):
+         self.object=self.get_object()
+         return super().post(request,*args,**kargs)
+     
+     def form_valid(self,form):
+         f=form.save(commit=False)
+         f.autor= self.request.user
+         f.peliculas= self.object
+         f.save()
+         return super().form_valid(form)
+     
+     def get_success_url(self):
+         return reverse('peliculas_detalle' ,kwargs={'slug':self.object.slug}) + '#comentarios'
+
+
+class PeliculasViews(View):
+
+    def get(self,request,*args,**kargs):
+        view=ReseñaPeliculaDetalle.as_view()
+        return view(request,*args,**kargs)
+    
+    
+    def post(self,request,*args,**kargs):
+        view=PeliculasFormViews.as_view()
+        return view(request,*args,**kargs)
+
+
+
+
      
    
 class PeliculasList(ListView):
     model = Peliculas
     template_name = 'AppCoder/peliculas.html'
     context_object_name ='peliculas'
-    paginate_by = 2 
-
+    paginate_by = 4 
 
 class CrearPelicula(LoginRequiredMixin,CreateView):
     model=Peliculas
@@ -69,7 +111,6 @@ class CrearPelicula(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.autor_reseña = self.request.user
         return super().form_valid(form)
-
 
 class EliminarPeliculas(DeleteView):
     model=Peliculas
@@ -105,6 +146,43 @@ def series(request):
 class ReseñaSeriesDetalle(LoginRequiredMixin,DetailView):
      model = Series
      template_name= 'AppCoder/series_detalle.html'
+
+     
+     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form']=ComentarioForm()
+        return context
+         
+class SeriesFormViews(SingleObjectMixin,FormView):
+     template_name= 'AppCoder/series_detalle.html'
+     form_class=ComentarioForm
+     model=Series
+
+     def post(self,request,*args,**kargs):
+         self.object=self.get_object()
+         return super().post(request,*args,**kargs)
+     
+     def form_valid(self,form):
+         f=form.save(commit=False)
+         f.autor= self.request.user
+         f.series= self.object
+         f.save()
+         return super().form_valid(form)
+     
+     def get_success_url(self):
+         return reverse('series_detalle' ,kwargs={'slug':self.object.slug}) + '#comentarios'
+
+
+class SeriesViews(View):
+
+    def get(self,request,*args,**kargs):
+        view=ReseñaSeriesDetalle.as_view()
+        return view(request,*args,**kargs)
+    
+    
+    def post(self,request,*args,**kargs):
+        view=SeriesFormViews.as_view()
+        return view(request,*args,**kargs)
 
 
 class SeriesList(ListView):
@@ -168,7 +246,7 @@ class CrearDirectores(LoginRequiredMixin,CreateView):
     model=Directores
     template_name='AppCoder/directores_formulario.html'
     fields=['nombre','apellido','biografia','citas','imagen']
-    success_url='/user-post-lista/'   
+    success_url='/directores-detalle/'   
 
   
 ##BUSQUEDA##

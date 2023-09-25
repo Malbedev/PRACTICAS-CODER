@@ -9,14 +9,14 @@ urlpatterns = [
     #Peliculas#
     path('peliculas/', PeliculasList.as_view(),name='peliculas'),
     path('peliculas-formulario/', CrearPelicula.as_view(),name='peliculasFormulario'),
-    path('peliculas-detalle/<slug:slug>',ReseñaPeliculaDetalle.as_view(),name='peliculas_detalle'),
+    path('peliculas-detalle/<slug:slug>',PeliculasViews.as_view(),name='peliculas_detalle'),
     path('peliculas-generos-lista/<slug:slug>', PeliculasGenerosLista.as_view(),name='PeliculasGenerosLista'),
     path('editar-peliculas/<pk>', EditarPeliculas.as_view(),name='EditarPeliculas'),
     path('eliminar-peliculas/<pk>', EliminarPeliculas.as_view(),name='EliminarPeliculas'),
     #Series#
     path('series/', SeriesList.as_view(),name='series'),
     path('series-formulario/',CrearSerie.as_view(),name='seriesFormulario'),
-    path('series-detalle/<slug:slug>',ReseñaSeriesDetalle.as_view(),name='series_detalle'),
+    path('series-detalle/<slug:slug>',SeriesViews.as_view(),name='series_detalle'),
     path('series-generos-lista/<slug:slug>', SeriesGenerosLista.as_view(),name='SeriesGenerosLista'),   
     path('editar-series/<pk>', EditarSeries.as_view(),name='EditarSeries'),
     path('eliminar-series/<pk>', EliminarSeries.as_view(),name='EliminarSeries'),

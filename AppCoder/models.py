@@ -4,6 +4,7 @@ from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User
 from datetime import date
 
+
 class Directores(models.Model):
     nombre =models.CharField(max_length=50)
     apellido=models.CharField(max_length=50)
@@ -23,7 +24,7 @@ class Directores(models.Model):
     
 class Generos(models.Model):
     genero=models.CharField(max_length=50)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True,null=True)
 
     def __str__(self):
         return self.genero

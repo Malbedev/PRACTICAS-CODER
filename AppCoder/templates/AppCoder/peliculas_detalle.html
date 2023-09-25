@@ -2,24 +2,22 @@
 
 {% load static %}
 {% load embed_video_tags %}
+{% load crispy_forms_tags %}
 
 {% block contenidoQueCambia %}
 
- <!-- Page content-->
  <div class="container mt-5">
     <div class="row">
         <div class="col-lg-8">
-            <!-- Post content-->
            
             <article>
-                <!-- Post header-->
+              
                 <header class="mb-4">
-                    <!-- Post title-->
-                 
-                    <h1 class="fw-bolder mb-1"> {{ peliculas.titulo }}</h1>
-                    <!-- Post meta content-->
+                   
+                   <h1 class="fw-bolder mb-1"> {{ peliculas.titulo }}</h1>
+
                     <div class="text-muted fst-italic mb-2"> {{ peliculas.fecha_creacion}} reseña por <a class="list-unstyled" href="{% url 'usuarios_detalle' peliculas.autor_reseña.id  %}">{{ peliculas.autor_reseña}}</a></div>
-                    <!-- Post categories-->
+
                     <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'directores_detalle' peliculas.director.slug %}">{{ peliculas.director}} </a> 
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                     <a class="badge bg-secondary text-decoration-none link-light">{{ peliculas.año}}</a>
@@ -27,16 +25,13 @@
                     <a class="badge bg-secondary text-decoration-none link-light">{{ generos.genero}}</a>
                     {% endfor %}
                 </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="{{ peliculas.imagen.url }}" alt="..." /></figure>
-                <!-- Post content-->
+                <figure class="mb-4"><img class="img-fluid rounded" width="1300" height="1600"  src="{{ peliculas.imagen.url }}" alt="..." /></figure>
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ peliculas.reseña }}</p>
                
                 </section>    
             </article>  
         </div>
-        <!-- Side widgets-->
         <div class="col-lg-4">                         
             <div class="mb-4">
                 <br>
@@ -45,19 +40,21 @@
                 <br>
                 <div class="card-header"><h4><i>Trailer</i></h4></div>
                 <div class="card">{% video peliculas.video_link 'small' %}</div>     
-                <br>
-                <br> 
-                 <!-- Comments section-->
+              
+            
             <section class="mb-5">
-                <h4 class="text-center">Comentarios</h4>
+                <h4  class="text-center">Comentarios</h4>
                 <div class="card bg-light">
                     <div class="card-body">
-                        <!-- Comment form-->
-                        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join! the discussion and leave a comment"></textarea></form>
-                        <!-- Comment with nested comments-->
+                        <form action=""method="post" > 
+                            {% csrf_token %}      
+                            {{ form|crispy }}
+                            <button class="btn btn-primary text-muted"  type="submit">enviar</button>
+                        </form>
+                        <br>
                         {% for comentario in peliculas.comentarios_set.all %}
                         <div class="d-flex mb-4">
-                            <div class="flex-shrink-0"><img class="rounded-circle" height="45px" width="45px" src="{{ comentario.autor.perfil.avatar.url }}" alt="..." /></div>
+                            <div  id='comentarios' class="flex-shrink-0"><img class="rounded-circle" height="45px" width="45px" src="{{ comentario.autor.perfil.avatar.url }}" alt="..." /></div>
                             <div class="ms-3">
                                 <div style="color: #fd7e14;"class="fw-bold"><a class="list-unstyled" href="{% url 'usuarios_detalle' comentario.autor.id  %}">@{{ comentario.autor }} </div></a>
                                 {{ comentario.contenido }}    

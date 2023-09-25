@@ -1,5 +1,6 @@
 {% extends "Base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% load embed_video_tags %}
 {% block contenidoQueCambia %}
 
@@ -25,7 +26,7 @@
                     {% endfor %}
                 </header>
                 <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="{{ series.imagen.url }}" alt="..." /></figure>
+                <figure class="mb-4"><img class="img-fluid rounded" width="1300" height="1600"  src="{{ series.imagen.url }}" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ series.reseña }}</p>
@@ -44,13 +45,16 @@
                 <div class="card">{% video series.video_link 'small' %}</div>     
                 <br>
                 <br> 
-                 <!-- Comments section-->
+                 
                  <section class="mb-5">
                     <div class="card bg-light">
                         <div class="card-body">
-                            <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                            <!-- Comment with nested comments-->
+                            <form action=""method="post" > 
+                                {% csrf_token %}      
+                                {{ form|crispy }}
+                                <button class="btn btn-primary text-muted"  type="submit">enviar</button>
+                            </form>
+                            <br>
                             {% for comentario in series.comentarios_set.all %}
                             <div class="d-flex mb-4">
                                 <div class="flex-shrink-0"><img class="rounded-circle" height="45px" width="45px" src="{{ comentario.autor.perfil.avatar.url }}" alt="..." /></div>
