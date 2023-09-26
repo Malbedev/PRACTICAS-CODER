@@ -11,6 +11,7 @@
                 <br>
                 <h2 style="color: #fd7e14;" >{{directores.nombre}} {{directores.apellido}}</h2>
                 <p><i>"{{directores.citas}}"</i></p>
+                <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'EditarDirectores' directores.id %}">Editar Colaborativo </a>
                 <hr class="d-none d-md-block">
               </div>
             </div>
@@ -22,7 +23,7 @@
     
             <div class="row gy-4 justify-content-center">
               <div class="col-lg-4">
-                <img src="{{ directores.imagen.url }}"href="" class="img-fluid" alt="">
+                <img src="{{ directores.imagen.url }}"href="" width="400" height="480"  class="img-fluid" alt="">
                 <div class="section-header">
                     <h3>Filmografia en Nerdflix</h3>
                     {% for pelicula in peliculas %}

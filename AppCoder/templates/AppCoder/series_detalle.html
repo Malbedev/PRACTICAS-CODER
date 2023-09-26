@@ -26,7 +26,7 @@
                     {% endfor %}
                 </header>
                 <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" width="1300" height="1600"  src="{{ series.imagen.url }}" alt="..." /></figure>
+                <figure class="mb-4"><img class="img-fluid rounded" width="1300" height="500"  src="{{ series.imagen.url }}" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ series.reseña }}</p>
@@ -59,7 +59,7 @@
                             <div class="d-flex mb-4">
                                 <div class="flex-shrink-0"><img class="rounded-circle" height="45px" width="45px" src="{{ comentario.autor.perfil.avatar.url }}" alt="..." /></div>
                                 <div class="ms-3">
-                                    <div style="color: #fd7e14;"class="fw-bold">@{{ comentario.autor }}</div>
+                                    <div style="color: #fd7e14;"class="fw-bold"><a class="list-unstyled" href="{% url 'usuarios_detalle' comentario.autor.id  %}">@{{ comentario.autor }} </div></a>
                                     {{ comentario.contenido }}  
                                     <div class="text-muted fst-italic mb-2"> {{ comentario.fecha_comentario }} </div>      
                                 </div>

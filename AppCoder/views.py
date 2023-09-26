@@ -248,6 +248,12 @@ class CrearDirectores(LoginRequiredMixin,CreateView):
     fields=['nombre','apellido','biografia','citas','imagen']
     success_url='/directores-detalle/'   
 
+
+class EditarDirectores(LoginRequiredMixin,UpdateView):
+    model=Directores
+    template_name='AppCoder/Directores_actualizar.html'
+    fields=['nombre','apellido','biografia','imagen','citas']
+    success_url='/directores/'
   
 ##BUSQUEDA##
 @login_required

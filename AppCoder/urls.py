@@ -24,6 +24,7 @@ urlpatterns = [
     path('directores/', directores,name='directores'),
     path('directores-formulario/',CrearDirectores.as_view(),name='directoresFormulario'), 
     path('directores-detalle/<slug:slug>',DirectoresDetalle.as_view(),name='directores_detalle'),
+    path('editar-directores/<pk>',EditarDirectores.as_view(),name='EditarDirectores'),
     #Busqedas#
     path('busqueda/', busqueda,name='busqueda'),
     path('resultados/',resultados,name='resultados'),

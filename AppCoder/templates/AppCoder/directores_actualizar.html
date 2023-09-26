@@ -1,0 +1,29 @@
+{% extends "Base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block contenidoQueCambia %}
+
+ <div class="page-header d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <br>
+          <br>
+          <form action="{% url 'EditarDirectores' directores.id %}" method="post" enctype="multipart/form-data"> 
+           
+            {% csrf_token %}
+
+         <h2>Editar  "{{directores.nombre}}{{directores.apellido}}"</h2> 
+         <br>
+            {{ form | crispy }}
+
+            <button class="btn btn-primary"  type="submit">Actualizar</button>
+        
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+{% endblock %}
