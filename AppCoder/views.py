@@ -17,7 +17,6 @@ def inicio(request):
     peliculas= Peliculas.objects.all()
     series= Series.objects.all()
     directores = Directores.objects.all()
-    curadores= Curadores.objects.all()
     destacada= Peliculas.objects.filter(destacada=True)
     destacada= Series.objects.filter(destacada=True)
     
@@ -25,7 +24,6 @@ def inicio(request):
          'peliculas' : peliculas,
          'series':series,
          'directores': directores,
-         'curadores': curadores,
          'destacada':destacada,
     }
     return render(request,"AppCoder/inicio.html",context=context)
@@ -38,13 +36,11 @@ def about(request):
 def peliculas(request):
     peliculas= Peliculas.objects.all()
     directores = Directores.objects.all()
-    curadores= Curadores.objects.all()
     destacada= Peliculas.objects.filter(destacada=True)
     
     context= {
          'peliculas' : peliculas,
          'directores': directores,
-         'curadores': curadores,
          'destacada':destacada,
     }
     return render(request,"AppCoder/peliculas.html",context=context)
@@ -78,7 +74,6 @@ class PeliculasFormViews(SingleObjectMixin,FormView):
      def get_success_url(self):
          return reverse('peliculas_detalle' ,kwargs={'slug':self.object.slug}) + '#comentarios'
 
-
 class PeliculasViews(View):
 
     def get(self,request,*args,**kargs):
@@ -89,10 +84,6 @@ class PeliculasViews(View):
     def post(self,request,*args,**kargs):
         view=PeliculasFormViews.as_view()
         return view(request,*args,**kargs)
-
-
-
-
      
    
 class PeliculasList(ListView):
@@ -129,14 +120,12 @@ def series(request):
      
     series= Series.objects.all()
     directores = Directores.objects.all()
-    curadores= Curadores.objects.all()
     generos = Generos.objects.all()
     destacada= Series.objects.filter(destacada=True)
      
     context= {
          'series' : series,
          'directores': directores,
-         'curadores': curadores,
          'generos':generos,
          'destacada':destacada,
          }
@@ -172,7 +161,6 @@ class SeriesFormViews(SingleObjectMixin,FormView):
      def get_success_url(self):
          return reverse('series_detalle' ,kwargs={'slug':self.object.slug}) + '#comentarios'
 
-
 class SeriesViews(View):
 
     def get(self,request,*args,**kargs):
@@ -189,7 +177,7 @@ class SeriesList(ListView):
     model = Series
     template_name = 'AppCoder/series.html'
     context_object_name ='series'
-    paginate_by = 4 
+    paginate_by = 2
 
 
 class CrearSerie(LoginRequiredMixin,CreateView):
@@ -429,7 +417,6 @@ class UserListaReseñasPeliculas(ListView):
        series_list = Peliculas.objects.filter(autor_reseña_id=query)
        return series_list
     
-
 class EditarPerfilUsuario(UpdateView):
     model:Perfil
     template_name='AppCoder/perfil_usuario_form.html'

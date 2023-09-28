@@ -80,14 +80,6 @@ class Series(models.Model):
         super(Series, self).save(*args, **kwargs)
   
 
-class Curadores(models.Model):
-    nombre =models.CharField(max_length=50)
-    apellido=models.CharField(max_length=50)
-    reseñas=models.ManyToManyField('Peliculas',blank=True)
-
-    def __str__(self):
-        return f'{self.nombre} {self.apellido}'
-
 
 class Perfil(models.Model):
     user =models.OneToOneField(User,on_delete=models.CASCADE)
