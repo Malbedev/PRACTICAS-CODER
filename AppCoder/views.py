@@ -250,8 +250,8 @@ def busqueda(request):
     if request.GET['titulo']:
 
         titulo = request.GET['titulo']
-        pelicula=Peliculas.objects.filter(Q(titulo__icontains = titulo))
-        serie=Series.objects.filter(Q(titulo__icontains = titulo))
+        pelicula=Peliculas.objects.filter(titulo__icontains = titulo)
+        serie=Series.objects.filter(titulo__icontains = titulo)
         if pelicula:
             return render(request,'AppCoder/resultado_peliculas.html',{'pelicula':pelicula,'generos':generos})
         elif serie:

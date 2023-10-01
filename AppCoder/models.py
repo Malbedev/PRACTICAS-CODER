@@ -45,7 +45,7 @@ class Peliculas(models.Model):
     reseña = models.TextField(null=True)
     autor_reseña= models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     cover = models.ImageField(null=True)
-    imagen = models.ImageField(null=True)
+    imagen = models.ImageField(null=True )
     video_link = EmbedVideoField(blank=True,null=True)
     destacada= models.BooleanField(default=False)
 
@@ -80,7 +80,6 @@ class Series(models.Model):
         super(Series, self).save(*args, **kwargs)
   
 
-
 class Perfil(models.Model):
     user =models.OneToOneField(User,on_delete=models.CASCADE)
     avatar=models.ImageField(null=True,blank=True)
@@ -98,6 +97,7 @@ class Perfil(models.Model):
         edad=date.today().year - self.fecha_nac.year
         return edad
     
+
 class Comentarios(models.Model):
     contenido= models.TextField(max_length=1000,help_text='Ingrese un comentario')
     autor= models.ForeignKey(User,on_delete=models.CASCADE,null=True)
